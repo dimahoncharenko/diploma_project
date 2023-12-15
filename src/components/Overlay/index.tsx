@@ -45,25 +45,47 @@ function List({ children, open }: Props) {
   );
 }
 
-export function Overlay() {
-  const { open } = useSnapshot(storeState);
+export function CaseOverlay() {
+  const { case_menu } = useSnapshot(storeState);
 
   return (
-    <List open={open}>
+    <List open={case_menu}>
       <h1>Type the number to choose action:</h1>
-      <h3>1. Stand and sit</h3>
+      <h3>1. Greet</h3>
       <h3>2. I purchase the product, thanks</h3>
       <h3>
         <span className="accent">3. Show me what you've got</span>
       </h3>
-      <h4>4. Running Shoes</h4>
-      <p className="price">5. $98.97</p>
-      <p>
-        6. Year after year Pegasus has proven itself on the feet of runners
-        everywhere. Now our most trusted style returns with new innovations that
-        make it more itself than ever. Meet the reliable, comfortable, always
-        ready-to-run Nike Air Zoom Pegasus.
-      </p>
+    </List>
+  );
+}
+
+export function ShoeOverlay() {
+  const { shoe_menu } = useSnapshot(storeState);
+
+  return (
+    <List open={shoe_menu}>
+      <h1>Type the number to choose action:</h1>
+      <h3>4. Greet</h3>
+      <h3>5. I purchase the product, thanks</h3>
+      <h3>
+        <span className="accent">6. Show me what you've got</span>
+      </h3>
+    </List>
+  );
+}
+
+export function ShirtOverlay() {
+  const { shirt_menu } = useSnapshot(storeState);
+
+  return (
+    <List open={shirt_menu}>
+      <h1>Type the number to choose action:</h1>
+      <h3>7. Greet</h3>
+      <h3>8. I purchase the product, thanks</h3>
+      <h3>
+        <span className="accent">9. Show me what you've got</span>
+      </h3>
     </List>
   );
 }

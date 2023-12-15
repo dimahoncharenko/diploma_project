@@ -19,7 +19,7 @@ type AvatarProps = GroupProps;
 
 export const Trader = ({ ...props }: AvatarProps) => {
   const [sub] = useKeyboardControls();
-  const { scene } = useGLTF("/models/trader/trader.glb");
+  const { scene } = useGLTF("/models/trader/trader-transformed.glb");
   const character = useRef<THREE.Group>(null);
   const [, setLocation] = useLocation();
 
@@ -46,44 +46,53 @@ export const Trader = ({ ...props }: AvatarProps) => {
     useState<keyof typeof animations>("Sitting Idle");
 
   const [text, setText] = useState<string | null>(null);
-  const { open } = useSnapshot(storeState);
+  const { case_menu } = useSnapshot(storeState);
 
   useEffect(() => {
     return sub(
       (state) => state["purchase"],
       (pressed) => {
-        if (open && pressed) {
-          storeState.open = false;
+        if (case_menu && pressed) {
+          storeState.case_menu = false;
           setText("Terrific choice!!!");
           setCurrentAnim("Purchase");
         }
       }
     );
-  }, [open]);
+  }, [case_menu]);
 
   useEffect(() => {
     return sub(
       (state) => state["greetings"],
       (pressed) => {
-        if (open && pressed) {
-          storeState.open = false;
+        if (case_menu && pressed) {
+          storeState.case_menu = false;
           setCurrentAnim("Sit To Stand");
         }
       }
     );
-  }, [open]);
+  }, [case_menu]);
 
   useEffect(() => {
     return sub(
-      (state) => state["show"],
+      (state) => state["show_case"],
       (pressed) => {
-        if (open && pressed) {
-          storeState.open = false;
+        if (case_menu && pressed) {
+          storeState.case_menu = false;
           setLocation("/item/01");
         }
       }
     );
-  }, [open]);
+  }, [case_menu]);
+
+  useEffect(() => {
+    return sub((state) => state["show_ring"],
+    (pressed) => {
+      if (pressed) {
+        setLocation("/item/03");
+      }
+    })
+  }, []);
 
   function handler() {
     if (currentAnim === "Sit To Stand") {
@@ -123,18 +132,18 @@ export const Trader = ({ ...props }: AvatarProps) => {
 
   return (
     <group {...props} ref={character}>
-      <mesh>
-        <primitive object={scene} />
+      <mesh frustumCulled={false} >
+        <primitive object={scene}/>
         <mesh
-          position={[0, 1.2, 0.2]}
+          position={[0, 0, 1.2]}
           scale={0.3}
           onPointerEnter={(e) => {
-            if (currentAnim !== "Sitting Idle" || e.distance > 2) return;
-            storeState.open = true;
+            if (currentAnim !== "Sitting Idle" || e.distance > 4) return;
+            storeState.case_menu = true;
           }}
           onPointerLeave={(e) => {
-            if (currentAnim !== "Sitting Idle" || e.distance > 2) return;
-            storeState.open = false;
+            if (currentAnim !== "Sitting Idle" || e.distance > 4) return;
+            storeState.case_menu = false;
           }}
         >
           <sphereGeometry args={[1, 1, 2]} />
@@ -150,4 +159,4 @@ export const Trader = ({ ...props }: AvatarProps) => {
   );
 };
 
-useGLTF.preload("/models/trader/trader.glb");
+useGLTF.preload("/models/trader/trader-transformed.glb");

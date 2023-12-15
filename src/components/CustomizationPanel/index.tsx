@@ -26,7 +26,7 @@ import UndoIcon from "@mui/icons-material/Undo";
 import { useSnapshot } from "valtio";
 
 import { AccordionDetailsWrap } from "./styled";
-import { decals } from "../../Decals";
+import { decals } from "../../utils/decals";
 import { AccordionCard } from "../AccordionCard";
 import { store15Pro, storeState } from "../../stores";
 
@@ -35,8 +35,7 @@ type Props = {
   visible?: boolean;
 };
 
-export const Decals = ({ visible = false, style = {} }: Props) => {
-  // const [customTextures, setCustomTextures] = useState<string[]>([]);
+export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [isScaleLock, setIsScaleLock] = useState(true);
   const { params } = useSnapshot(store15Pro);
@@ -46,20 +45,6 @@ export const Decals = ({ visible = false, style = {} }: Props) => {
     (panel: string) => (_: SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await listAll(ref(storage, "collection/"));
-  //     const result: string[] = [];
-
-  //     for await (const custom of response.items) {
-  //       const urlImage = await getDownloadURL(custom);
-  //       result.push(urlImage);
-  //     }
-
-  //     setCustomTextures(result);
-  //   })();
-  // }, []);
 
   if (!visible) return null;
 
@@ -388,44 +373,6 @@ export const Decals = ({ visible = false, style = {} }: Props) => {
             Apply a suitable material for your needs
           </Typography>
         </AccordionSummary>
-        <AccordionDetailsWrap>
-          {/* {materials.map((m, index) => (
-            <AccordionCard
-              key={index}
-              {...m}
-              onApply={() => changeMaterial(m.title)}
-            />
-          ))} */}
-        </AccordionDetailsWrap>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Custom Decals
-          </Typography>
-          <Typography sx={{ color: "text.secondary" }}>
-            Find your textures in this section
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetailsWrap>
-          {/* {customTextures.length &&
-            customTextures.map((t, index) => (
-              <AccordionCard
-                key={index}
-                image={t}
-                desc=""
-                title={`Custom Texture ${index}`}
-                onApply={() => changeDecal(t)}
-              />
-            ))} */}
-        </AccordionDetailsWrap>
       </Accordion>
     </div>
   );

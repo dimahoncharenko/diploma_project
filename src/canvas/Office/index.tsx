@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.15 ./coffee_3.glb --types
 */
 
 import * as THREE from "three";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { RigidBody } from "@react-three/rapier";
@@ -95,6 +95,9 @@ type GLTFResult = GLTF & {
     Circle002_1: THREE.Mesh;
     Circle002_2: THREE.Mesh;
     Plane: THREE.Mesh;
+    Text005: THREE.Mesh;
+    Text010: THREE.Mesh;
+    Text009: THREE.Mesh;
   };
   materials: {
     LP_Rooms: THREE.MeshStandardMaterial;
@@ -114,19 +117,19 @@ type GLTFResult = GLTF & {
 
 type Props = {
   children: ReactNode;
-  sceneType?: "Shoes" | "Cases";
+  sceneType?: "Shoes" | "Cases" | "Shirt";
 } & Omit<JSX.IntrinsicElements["group"], "children">;
 
-export function Model({ children, sceneType = "Shoes", ...props }: Props) {
-  const { nodes, materials } = useGLTF("/models/shore/shore.glb") as GLTFResult;
+export function Office({ children, sceneType = "Shoes", ...props }: Props) {
+  const { nodes, materials } = useGLTF("/models/shore/office.glb") as GLTFResult;
   return (
     <group {...props} dispose={null}>
       {children}
       <RigidBody type="fixed" colliders="trimesh">
         <group
-          position={[-2.287, 0, -1.453]}
+          position={[-2, 0.2, -1.3]}
           rotation={[Math.PI / 2, 0, 0]}
-          scale={0.01}
+          scale={0.011}
         >
           <mesh
             geometry={nodes.Office2_Books1.geometry}
@@ -225,11 +228,6 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
             material={materials.LP_Rooms}
           />
           <mesh
-            geometry={nodes.Office2_chair.geometry}
-            material={materials.LP_Rooms}
-            position={[0, -61.57, 0]}
-          />
-          <mesh
             geometry={nodes.Office2_clock_1.geometry}
             material={materials.LP_Rooms}
             position={[-29.086, 0, 0]}
@@ -246,10 +244,7 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
             geometry={nodes.Office2_Flower.geometry}
             material={materials.LP_Rooms}
           />
-          <mesh
-            geometry={nodes.Office2_Keyboard.geometry}
-            material={materials.LP_Rooms}
-          />
+
           <mesh
             geometry={nodes.Office2_little_table.geometry}
             material={materials.LP_Rooms}
@@ -275,44 +270,78 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
             material={materials.LP_Rooms}
           />
           <mesh
-            geometry={nodes.Office2_monitor1.geometry}
-            material={materials.LP_Rooms}
-          />
-          <mesh
-            geometry={nodes.Office2_Mouse.geometry}
-            material={materials.LP_Rooms}
-          />
-          <mesh
             geometry={nodes.Office2_parquet1.geometry}
             material={materials.LP_Rooms}
+            position={[130, -10, 4]}
+            scale={[1.7, 1.2, 1]}
           />
+          {/* Interior Walls */}
           <mesh
+            name="left wall"
             geometry={nodes.Office2_parquet2.geometry}
             material={materials.LP_Rooms}
-            position={[-29.415, 17.469, 0]}
-            scale={[1, 1.271, 1]}
+            position={[-28, 5, -3]}
+            scale={[1, 1.16, 1]}
           />
           <mesh
+            name="right wall"
             geometry={nodes.Office2_parquet2001.geometry}
             material={materials.LP_Rooms}
-            position={[872.712, 15.884, -2.889]}
-            scale={[1, 1.291, 1]}
+            position={[789, 0, -2.889]}
+            scale={[1, 1.15, 1]}
           />
           <mesh
+            name="middle wall"
             geometry={nodes.Office2_parquet2002.geometry}
             material={materials.LP_Rooms}
-            position={[148, -496.13, -2.889]}
+            position={[110, -481, -2.889]}
             rotation={[0, 0, -Math.PI / 2]}
-            scale={[1, 1.93, 1]}
+            scale={[1, 1.77, 1]}
           />
-          <mesh
-            geometry={nodes.Office2_Pens.geometry}
-            material={materials.LP_Rooms}
-          />
-          <mesh
-            geometry={nodes.Office2_Photoframe1.geometry}
-            material={materials.LP_Rooms}
-          />
+          {/* Interior Walls */}
+
+          {/* Workplace */}
+          <group rotation={[0, 0, Math.PI / 2]} position={[375, -150, 5]}>
+            <mesh
+              geometry={nodes.Office2_chair.geometry}
+              material={materials.LP_Rooms}
+              position={[0, -30, 0]}
+              rotation={[0, 0, -0.2]}
+            />
+            <mesh
+              geometry={nodes.Office2_Keyboard.geometry}
+              material={materials.LP_Rooms}
+            />
+            <mesh
+              geometry={nodes.Office2_monitor1.geometry}
+              material={materials.LP_Rooms}
+            />
+            <mesh
+              geometry={nodes.Office2_Mouse.geometry}
+              material={materials.LP_Rooms}
+            />
+            <mesh
+              geometry={nodes.Office2_Room_Paper.geometry}
+              material={materials.LP_Rooms}
+            />
+            <mesh
+              geometry={nodes.Office2_Pens.geometry}
+              material={materials.LP_Rooms}
+            />
+            <mesh
+              geometry={nodes.Office2_Photoframe1.geometry}
+              material={materials.LP_Rooms}
+            />
+            <mesh
+              geometry={nodes.Office2_stand.geometry}
+              material={materials.LP_Rooms}
+            />
+            <mesh
+              geometry={nodes.Office2_table.geometry}
+              material={materials.LP_Rooms}
+            />
+          </group>
+          {/* Workplace */}
           <mesh
             geometry={nodes.Office2_Photoframe_2.geometry}
             material={materials.LP_Rooms}
@@ -331,23 +360,11 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
             position={[-31.621, 0, 0]}
           />
           <mesh
-            geometry={nodes.Office2_Room_Paper.geometry}
-            material={materials.LP_Rooms}
-          />
-          <mesh
             geometry={nodes.Office2_shelves.geometry}
             material={materials.LP_Rooms}
           />
           <mesh
             geometry={nodes.Office2_sofa.geometry}
-            material={materials.LP_Rooms}
-          />
-          <mesh
-            geometry={nodes.Office2_stand.geometry}
-            material={materials.LP_Rooms}
-          />
-          <mesh
-            geometry={nodes.Office2_table.geometry}
             material={materials.LP_Rooms}
           />
           <mesh
@@ -367,6 +384,7 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
             material={materials.LP_Rooms}
           />
         </group>
+
         <pointLight
           intensity={1.853}
           decay={2}
@@ -375,20 +393,22 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
           rotation={[-Math.PI / 2, 0, 0]}
           scale={[1.371, 1.454, 1.276]}
         />
-        <group position={[0, -1.261, 0]} scale={[5.484, 5.105, 5.818]}>
+        <group position={[0, -1.4, 0]} scale={[5.484, 5.6, 5.818]}>
           <mesh
             geometry={nodes.Plane002_1.geometry}
             material={materials["Material.004"]}
+            material-color={sceneType === "Shoes" ? "pink" : sceneType === "Cases" ? "orange" : "orangered"}
           />
           <mesh
             geometry={nodes.Plane002_2.geometry}
             material={materials["Material.005"]}
+            material-color="lightgray"
           />
         </group>
         <mesh
           geometry={nodes.Plane004.geometry}
           material={materials["Material.003"]}
-          position={[0, -1.386, 0]}
+          position={[0, -0.9, 0]}
           scale={[5.484, 5.105, 5.818]}
         />
         <mesh
@@ -400,49 +420,51 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
         <mesh
           geometry={nodes.Plane006.geometry}
           material={materials["Material.009"]}
-          position={[0, -1.413, 0]}
+          position={[0, -0.9, 0]}
           scale={[5.484, 5.105, 5.818]}
         />
         <mesh
           geometry={nodes.Plane007.geometry}
           material={materials["Material.006"]}
-          position={[0, -1.261, 0]}
-          scale={[5.484, 5.105, 5.818]}
+          position={[0, -1.4, 0]}
+          scale={[5.484, 5.6, 5.818]}
         >
           <mesh
             geometry={nodes.Left_Window.geometry}
-            material={materials.Material}
             position={[-0.576, 0.698, 0.303]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={[0.182, 0.172, 0.108]}
-          />
+          >
+            <meshBasicMaterial color="white" transparent opacity={.2} side={THREE.DoubleSide}/>
+          </mesh>
           <mesh
             geometry={nodes.Right_Window_.geometry}
-            material={materials.Material}
             position={[0.43, 0.698, 0.303]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={[0.182, 0.172, 0.108]}
-          />
+          >
+            <meshBasicMaterial color="white" transparent opacity={.2} side={THREE.DoubleSide}/>
+          </mesh>
         </mesh>
-        <mesh
-          geometry={nodes.Plane008.geometry}
-          material={materials["Material.006"]}
-          position={[-0.1, -1.261, 3.5]}
-          rotation={[Math.PI, -1.396, Math.PI]}
-          scale={[5.484, 5.105, 5.818]}
-        />
-        <mesh
-          geometry={nodes.Plane009.geometry}
-          material={materials["Material.010"]}
-          position={[0, -1.261, 0]}
-          scale={[5.484, 5.105, 5.818]}
-        />
-        <mesh
-          geometry={nodes.Plane010.geometry}
-          material={materials["Material.010"]}
-          position={[0, -1.261, 0]}
-          scale={[5.484, 5.105, 5.818]}
-        />
+        {/* Entry door */}
+        <group name="entry door">
+          <mesh
+            geometry={nodes.Plane008.geometry}
+            material={materials["Material.006"]}
+            position={[-0.1, -1.35, 3.5]}
+            rotation={[Math.PI, -1.396, Math.PI]}
+            scale={[5.484, 5.6, 5.818]}
+          />
+          <mesh
+            geometry={nodes.Plane.geometry}
+            position={[-1.48, 2, 2.81]}
+            rotation={[Math.PI / 2, 0, 1.745]}
+            scale={[0.55, 1, 1.1]}
+          >
+            <meshBasicMaterial color="white" transparent opacity={.2} side={THREE.DoubleSide}/>
+          </mesh>
+        </group>
+        {/* Entry door */}
         <mesh
           geometry={nodes.Plane003.geometry}
           material={materials["Material.003"]}
@@ -450,7 +472,7 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
           rotation={[Math.PI / 2, 0, 0]}
           scale={[0.614, 0.998, 0.571]}
         >
-          {sceneType === "Shoes" ? (
+          {sceneType !== "Cases" ? (
             <mesh
               geometry={nodes.Text006.geometry}
               material={materials["Material.006"]}
@@ -473,7 +495,7 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
           rotation={[Math.PI / 2, 0, 0]}
           scale={[0.614, 0.998, 0.571]}
         >
-          {sceneType === "Shoes" ? (
+          {sceneType === "Shoes" || sceneType === "Shirt" ? (
             <mesh
               geometry={nodes.Text007.geometry}
               material={materials["Material.006"]}
@@ -496,14 +518,14 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
           rotation={[Math.PI / 2, 0, 0]}
           scale={[0.614, 0.998, 0.571]}
         >
-          {sceneType === "Shoes" ? (
+          {sceneType === "Shoes" && (
             <mesh
               geometry={nodes.Text008.geometry}
               material={materials["Material.006"]}
               position={[-0.071, -0.303, 0.1]}
               scale={2.233}
-            />
-          ) : (
+            />)}
+          {sceneType === "Cases" && (
             <mesh
               geometry={nodes.Text002.geometry}
               material={materials["Material.006"]}
@@ -511,55 +533,27 @@ export function Model({ children, sceneType = "Shoes", ...props }: Props) {
               scale={2.233}
             />
           )}
+          {sceneType === "Shirt" && (
+            <mesh geometry={nodes.Text009.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
+          )}
         </mesh>
-        <mesh
-          geometry={nodes.Plane013.geometry}
-          material={materials["Material.003"]}
-          position={[0.953, 5.226, 2.414]}
-          rotation={[Math.PI / 2, 0, 0]}
-          scale={[0.614, 0.998, 0.571]}
-        >
-          <mesh
-            geometry={nodes.Text003.geometry}
-            material={materials["Material.006"]}
-            position={[-0.071, -0.303, 0.1]}
-            scale={2.233}
-          />
-        </mesh>
-        <mesh
-          geometry={nodes.Plane014.geometry}
-          material={materials["Material.003"]}
-          position={[2.311, 5.226, 2.414]}
-          rotation={[Math.PI / 2, 0, 0]}
-          scale={[0.614, 0.998, 0.571]}
-        >
-          <mesh
-            geometry={nodes.Text004.geometry}
-            material={materials["Material.006"]}
-            position={[-0.071, -0.303, 0.1]}
-            scale={2.233}
-          />
-        </mesh>
-        <group position={[-3.899, -0.06, 4.609]} scale={[0.584, 0.544, 0.62]}>
-          <mesh
-            geometry={nodes.Circle002_1.geometry}
-            material={materials["Material.010"]}
-          />
-          <mesh
-            geometry={nodes.Circle002_2.geometry}
-            material={materials["Material.007"]}
-          />
-        </group>
-        <mesh
-          geometry={nodes.Plane.geometry}
-          material={materials["Material.002"]}
-          position={[-1.48, 1.85, 2.81]}
-          rotation={[Math.PI / 2, 0, 1.745]}
-          scale={[0.55, 1, 1]}
-        />
+           <mesh geometry={nodes.Plane013.geometry} material={materials['Material.003']} position={[0.953, 5.226, 2.414]} rotation={[Math.PI / 2, 0, 0]} scale={[0.614, 0.998, 0.571]}>
+            {sceneType === "Cases" || sceneType === "Shoes" ? (
+              <mesh geometry={nodes.Text003.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
+            ) : (
+              <mesh geometry={nodes.Text005.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
+            )}
+         </mesh>
+         <mesh geometry={nodes.Plane014.geometry} material={materials['Material.003']} position={[2.311, 5.226, 2.414]} rotation={[Math.PI / 2, 0, 0]} scale={[0.614, 0.998, 0.571]}>
+          {sceneType === "Cases" || sceneType === "Shoes" ? (
+            <mesh geometry={nodes.Text004.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
+          ) : (
+           <mesh geometry={nodes.Text010.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
+          )}
+         </mesh>
       </RigidBody>
     </group>
   );
 }
 
-useGLTF.preload("/models/shore/shore.glb");
+useGLTF.preload("/models/shore/office.glb");

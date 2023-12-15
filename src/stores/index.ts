@@ -1,7 +1,7 @@
 import { proxy } from "valtio";
 import { CSSProperties } from "react";
 
-import { decals, Decal } from "../Decals";
+import { decals, Decal } from "../utils/decals";
 
 type AvailableParams = {
   texturePosition: [number, number];
@@ -34,17 +34,30 @@ type ShoeState = {
   }
 }
 
+type ShirtStore = {
+  id: "shirt_state",
+  colors: CSSProperties["color"][],
+  decals: string[],
+  decalSize: number;
+  current_color: string;
+  current_decal: string;
+}
+
 type StoreState = {
   id: "s_state";
-  open: boolean;
+  shoe_menu: boolean;
+  case_menu: boolean;
+  shirt_menu: boolean;
   ready: boolean;
   locked: boolean;
   isCustomColor: boolean;
   requestedDialog: boolean;
+  activeStore: string;
+  isCrossedBorders: boolean;
 }
 
 type Store = {
-  [P in string]: ProductState | StoreState | ShoeState;
+  [P in string]: ProductState | StoreState | ShoeState | ShirtStore;
 }
 
 const store = proxy<Store>({
@@ -56,11 +69,15 @@ const store = proxy<Store>({
   },
   storeState: {
     id: "s_state",
-    open: false,
+    shoe_menu: false,
+    case_menu: false,
+    shirt_menu: false,
     locked: true,
     ready: false,
     isCustomColor: false,
-    requestedDialog: false
+    requestedDialog: false,
+    activeStore: "cases",
+    isCrossedBorders: false
   },
   shoeState: {
     id: "shoe_state",
@@ -75,11 +92,20 @@ const store = proxy<Store>({
       sole: "#ffffff",
       stripes: "#ffffff"
     }
+  },
+  shirtStore: {
+    id: "shirt_state",
+    colors: ['#ccc', '#EFBD4E', '#80C670', '#726DE8', '#EF674E', '#353934'],
+    decals: ['react', 'three2', 'pmndrs', 'nau'],
+    decalSize: 1,
+    current_color: '#EFBD4E',
+    current_decal: 'three2'
   }
 });
 
 const store15Pro = store["store15Pro"] as ProductState;
 const storeState = store["storeState"] as StoreState;
 const storeShoe = store["shoeState"] as ShoeState;
+const storeShirt = store["shirtStore"] as ShirtStore;
 
-export { store15Pro, storeState, storeShoe };
+export { store15Pro, storeState, storeShoe, storeShirt };

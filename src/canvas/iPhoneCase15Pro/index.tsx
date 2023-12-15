@@ -39,7 +39,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   }, [params.textureColor]);
 
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null}> 
       <mesh
         geometry={nodes.Plane_PBR_0.geometry}
         material={materials.material}
