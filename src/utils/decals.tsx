@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Decal, useTexture, DecalProps } from "@react-three/drei";
 
 export const decalUrls = [
@@ -7,8 +7,6 @@ export const decalUrls = [
   "bestia_2",
   "bubbles",
   "desert_1",
-  "doggy_1",
-  "doggy_2",
   "doggy_3",
   "doggy_4",
   "impressionism_1",
@@ -16,7 +14,7 @@ export const decalUrls = [
   "leopard_1",
   "leopard_2",
   "leopard_3",
-  "mosaic.jpg",
+  "mosaic",
   "moscow_burn",
   "mysterious_1",
   "mysterious_2",
@@ -40,10 +38,10 @@ type ComponentProps = {
 
 export type Decal = {
   image: string;
-  component: (props: ComponentProps) => JSX.Element;
+  component: (props: ComponentProps) => JSX.Element | null;
 };
 
-const createTexture = (path: string) => {
+export const createTexture = (path: string) => {
   return ({
     textureRotation = [0, 0, 0],
     textureOffset = [0, 0],
@@ -74,8 +72,7 @@ export const createDecals = async (src: string[]) => {
   let res: Decal[] = [];
 
   for (let image of src) {
-    /* @vite-ignore */
-    const { default: img } = await import("../assets/" + image + ".jpg");
+    const { default: img } = await import(/* @vite-ignore */"../assets/" + image + ".jpg");
 
     res.push({
       image: img,
@@ -86,4 +83,17 @@ export const createDecals = async (src: string[]) => {
   return res;
 };
 
-export const decals = await createDecals(decalUrls);
+export const loadDecals = () => {
+  const [decals, setDecals] = useState<Decal[] | null>(null);
+
+  useEffect(() => {
+    const fetchDecals = async () => {
+      const decs = await createDecals(decalUrls);
+      setDecals(decs);
+    };
+
+    fetchDecals();
+  }, []);
+
+  return decals;
+};

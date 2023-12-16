@@ -1,7 +1,8 @@
 import { proxy } from "valtio";
 import { CSSProperties } from "react";
 
-import { decals, Decal } from "../utils/decals";
+import { Decal, createTexture } from "../utils/decals";
+import defaultDecal from "../assets/bestia_1.jpg";
 
 type AvailableParams = {
   texturePosition: [number, number];
@@ -64,7 +65,10 @@ const store = proxy<Store>({
   store15Pro: {
     id: "p_state",
     material: null,
-    decal: decals[0],
+    decal: {
+      image: defaultDecal,
+      component: createTexture(defaultDecal)
+    },
     params: {...defaultParams},
   },
   storeState: {

@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent, CSSProperties } from "react";
+import { useState, SyntheticEvent, CSSProperties, useEffect } from "react";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -26,7 +26,7 @@ import UndoIcon from "@mui/icons-material/Undo";
 import { useSnapshot } from "valtio";
 
 import { AccordionDetailsWrap } from "./styled";
-import { decals } from "../../utils/decals";
+import { Decal, createDecals, decalUrls } from "../../utils/decals";
 import { AccordionCard } from "../AccordionCard";
 import { store15Pro, storeState } from "../../stores";
 
@@ -39,14 +39,29 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [isScaleLock, setIsScaleLock] = useState(true);
   const { params } = useSnapshot(store15Pro);
-  const { isCustomColor } = useSnapshot(storeState);
+  const { isCustomColor, ready } = useSnapshot(storeState);
+
+  const [requested, setRequested] = useState(false);
+  const [decals, setDecals] = useState<Decal[] | null>(null);
+
+  useEffect(() => {
+    if (!requested || decals?.length) return;
+
+
+    const fetchDecals = async () => {
+      const decs = await createDecals(decalUrls);
+      setDecals(decs);
+    };
+
+    fetchDecals();
+  }, [requested]);
 
   const handleChange =
     (panel: string) => (_: SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
 
-  if (!visible) return null;
+  if (!visible || !ready) return null;
 
   return (
     <div style={style} id="customization-panel">
@@ -326,6 +341,9 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2bh-content"
           id="panel2bh-header"
+          onClick={() => {
+            setRequested(true);
+          }}
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>Decals</Typography>
           <Typography sx={{ color: "text.secondary" }}>
@@ -338,7 +356,7 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
             minHeight: "max-content",
           }}
         >
-          {decals.map((d, index) => (
+          {decals && decals.length && decals.map((d, index) => (
             <AccordionCard
               key={index}
               image={d.image}
