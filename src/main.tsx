@@ -24,7 +24,7 @@ function Overlay() {
   const [, params] = useRoute("/item/:id");
   const [, setLocation] = useLocation();
   const { progress, total, item, loaded, active } = useProgress();
-
+  
   return (
     <>
       <App />

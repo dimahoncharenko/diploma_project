@@ -85,10 +85,10 @@ export const App = () => {
         }}
       >
         <Suspense fallback={null}>
-          <Sky turbidity={1} sunPosition={[0,0.03,1]} rayleigh={3}/>
+          <Sky  turbidity={1} sunPosition={[0,0.03, 2]} rayleigh={3}/>
           <AdaptiveDpr /> 
           <fog attach="fog" color="#342e30" near={0} far={100} />
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={0.2} />
           <Bvh>
             {activeStore === "cases" && (
               <Room id="01" position={[-2000, 1000, -4]} bg="#e4cdac">

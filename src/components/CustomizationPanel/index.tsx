@@ -100,7 +100,7 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                     max={1}
                     step={0.01}
                     onChange={(e) => {
-                      if (e.target && e.target.value)
+                      if (e.target && "value" in e.target)
                         store15Pro.params.texturePosition[0] = Number(
                           e.target.value
                         );
@@ -123,9 +123,11 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                     max={0.3}
                     step={0.01}
                     onChange={(e) => {
-                      store15Pro.params.texturePosition[1] = Number(
-                        e.target!.value
-                      );
+                      if (e.target && "value" in e.target) {
+                        store15Pro.params.texturePosition[1] = Number(
+                          e.target!.value
+                        );
+                      }
                     }}
                   />
                   <ArrowDownIcon fontSize="large" />
@@ -162,11 +164,10 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                 getAriaLabel={() => "Volume"}
                 value={params.textureScaling[0]}
                 onChange={(e) => {
-                  const value = e.target?.value;
-                  if (value) {
-                    store15Pro.params.textureScaling[0] = value;
+                  if (e.target && "value" in e.target) {
+                    store15Pro.params.textureScaling[0] = Number(e.target.value);
                     isScaleLock &&
-                      (store15Pro.params.textureScaling[1] = value);
+                      (store15Pro.params.textureScaling[1] = Number(e.target.value));
                   }
                 }}
                 min={0.6}
@@ -198,9 +199,8 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                     : params.textureScaling[1]
                 }
                 onChange={(e) => {
-                  const value = e.target?.value;
-                  if (value) {
-                    store15Pro.params.textureScaling[1] = value;
+                  if (e.target && "value" in e.target) {
+                    store15Pro.params.textureScaling[1] = Number(e.target.value);
                   }
                 }}
                 min={0.6}
@@ -240,8 +240,8 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                 getAriaLabel={() => "Volume"}
                 value={params.textureRotation}
                 onChange={(e) => {
-                  if (e.target?.value) {
-                    store15Pro.params.textureRotation = e.target?.value;
+                  if (e.target && "value" in e.target) {
+                    store15Pro.params.textureRotation = Number(e.target.value);
                   }
                 }}
                 min={-(Math.PI / 2)}
@@ -280,12 +280,6 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
             <FormGroup>
               <FormControlLabel
                 label="Decal is repetitive?"
-                control={<Checkbox onChange={() => {}} />}
-              />
-            </FormGroup>
-            <FormGroup>
-              <FormControlLabel
-                label="Camera gap is filled?"
                 control={<Checkbox onChange={() => {}} />}
               />
             </FormGroup>

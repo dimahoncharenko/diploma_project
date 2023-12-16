@@ -17,6 +17,7 @@ export const Room = ({ id, bg = "#ffffff", children, ...props }: RoomProps) => {
 
   useLayoutEffect(() => {
     if (!params?.id && portal.current) {
+      // @ts-ignore
       portal.current.blend = 0;
     }
   }, [params?.id]);

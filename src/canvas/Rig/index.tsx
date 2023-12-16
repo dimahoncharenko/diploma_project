@@ -35,7 +35,7 @@ export const Rig = ({
       active.parent.localToWorld(position.set(0, 0.5, 0.25));
       active.parent.localToWorld(focus.set(0, 0, -2));
     }
-
+    // @ts-ignore
     controls?.setLookAt(...position.toArray(), ...focus.toArray(), true);
   });
   

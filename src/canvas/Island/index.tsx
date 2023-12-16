@@ -10,7 +10,7 @@ import {
   MeshCollider,
   RigidBody
 } from "@react-three/rapier";
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { storeState } from "../../stores";
 
 type GLTFResult = GLTF & {

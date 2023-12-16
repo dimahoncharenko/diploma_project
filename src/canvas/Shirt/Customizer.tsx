@@ -27,7 +27,7 @@ export function Customizer() {
             ))}
           </div>
         </div>
-        <Slider value={snap.decalSize} step={.1} min={0} max={2} onChange={(e) => e.target?.value && (storeShirt.decalSize = Number(e.target.value || 0))} style={{ position: "fixed", left: "50%", transform: "translateX(-50%)", top: "5%", maxWidth: "30vw" }}/>
+        <Slider value={snap.decalSize} step={.1} min={0} max={2} onChange={(e) => e.target && "value" in e.target && (storeShirt.decalSize = Number(e.target.value || 0))} style={{ position: "fixed", left: "50%", transform: "translateX(-50%)", top: "5%", maxWidth: "30vw" }}/>
         <button
           className="share"
           style={{ background: snap.current_color }}

@@ -5,9 +5,6 @@ import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 import { CapsuleCollider, RigidBody } from "@react-three/rapier";
 
-import { storeState } from "../../stores";
-import { useSnapshot } from "valtio";
-
 const SPEED = 7;
 let direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
@@ -16,7 +13,6 @@ const sideVector = new THREE.Vector3();
 export const Player = () => {
   const ref = useRef<RAPIER.RigidBody>(null);
   const colliderRef = useRef<any>(null);
-  // const { isCrossedBorders } = useSnapshot(storeState);
   const [, get] = useKeyboardControls();
 
   useFrame((state: any) => {
@@ -37,11 +33,6 @@ export const Player = () => {
       .multiplyScalar(SPEED)
       .applyEuler(state.camera.rotation);
 
-    // if (isCrossedBorders) {
-    //   const { x, y, z } = direction;
-    //   // The biggest number
-    //   velocity.y = -1;
-    // }
     ref.current.setLinvel(
       { x: direction.x, y: velocity.y, z: direction.z },
       true
