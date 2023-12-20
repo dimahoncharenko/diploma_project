@@ -96,13 +96,13 @@ export const Trader = ({ ...props }: AvatarProps) => {
 
   function handler() {
     if (currentAnim === "Sit To Stand") {
-      character.current?.translateZ(0.8);
+      character.current?.translateY(-.8);
       setCurrentAnim("Official Bow");
     } else if (currentAnim === "Official Bow") {
-      character.current?.translateZ(0.1);
+      character.current?.translateY(-.1);
       setCurrentAnim("Stand To Sit");
     } else {
-      if (currentAnim !== "Purchase") character.current?.translateZ(-0.9);
+      if (currentAnim !== "Purchase") character.current?.translateY(.9);
       setCurrentAnim("Sitting Idle");
       setText(null);
     }

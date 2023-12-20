@@ -37,7 +37,7 @@ extend(geometry);
 export const App = () => {
   const [, params] = useRoute("/item/:id");
   const pointerRef = useRef(null);
-  const { activeStore } = useSnapshot(storeState);
+  const { activeStore, ready } = useSnapshot(storeState);
 
   useEffect(() => {
     if (!pointerRef.current) return;
@@ -115,14 +115,14 @@ export const App = () => {
               </Room>
             )}
           </Bvh>
-          <Html
+          {ready && <Html
             position={[1.9, 14, 1.5]}
             dispose={null}
             transform
             rotation={[0, -0.3, -0.02]}
           >
             <StoreSelector />
-          </Html>
+          </Html>}
           <Physics gravity={[0, -30, 0]}>
             <Island scale={25} />
             {params?.id ? null : <Player />}

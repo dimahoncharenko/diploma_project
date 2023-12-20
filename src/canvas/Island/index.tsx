@@ -1381,8 +1381,7 @@ export function Island(props: JSX.IntrinsicElements["group"]) {
               geometry={nodes.Cylinder020_1.geometry}
               material={materials["Material.013"]}
             />
-          </group>
-          
+          </group>        
           <mesh
             geometry={nodes.Plane002.geometry}
             material={materials["Material.004"]}
@@ -1474,28 +1473,28 @@ export function Island(props: JSX.IntrinsicElements["group"]) {
             <meshStandardMaterial
               {...materials["Material.002"]}
               aoMap={aoMap1024}
-              aoMapIntensity={1.5}
+              aoMapIntensity={4}
             />
           </mesh>
           <mesh geometry={nodes.Landscape_2.geometry}>
             <meshStandardMaterial
               {...materials["Material.003"]}
               aoMap={aoMap1024}
-              aoMapIntensity={1.5}
+              aoMapIntensity={4}
             />
           </mesh>
           <mesh geometry={nodes.Landscape_3.geometry}>
             <meshStandardMaterial
               {...materials["Material.004"]}
               aoMap={aoMap1024}
-              aoMapIntensity={1.5}
+              aoMapIntensity={4}
             />
           </mesh>
           <mesh geometry={nodes.Landscape_4.geometry}>
             <meshStandardMaterial
               {...materials["Material.005"]}
               aoMap={aoMap1024}
-              aoMapIntensity={1.5}
+              aoMapIntensity={4}
             />
           </mesh>
         </MeshCollider>

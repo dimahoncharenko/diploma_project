@@ -5,7 +5,7 @@ import { useProgress } from "@react-three/drei";
 
 import "./index.css";
 import { App } from "./App";
-import { CustimizationPanel } from "./components/CustomizationPanel";
+import { CustomizationPanel } from "./components/CustomizationPanel";
 import { CaseOverlay, ShoeOverlay, ShirtOverlay } from "./components/Overlay";
 import { Picker } from "./canvas/Shoe/Picker";
 import { storeState } from "./stores";
@@ -66,7 +66,7 @@ function Overlay() {
           ? "< Back"
           : advices[Math.floor(Math.random() * advices.length)]}
       </a>
-      <CustimizationPanel
+      <CustomizationPanel
         visible={!!params?.id && params?.id === "01"}
         style={{ zIndex: 10000 }}
       />

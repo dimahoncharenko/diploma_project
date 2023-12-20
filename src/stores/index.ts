@@ -2,7 +2,7 @@ import { proxy } from "valtio";
 import { CSSProperties } from "react";
 
 import { Decal, createTexture } from "../utils/decals";
-import defaultDecal from "../assets/bestia_1.jpg";
+import defaultDecal from "/decals/bestia_1.jpg";
 
 type AvailableParams = {
   texturePosition: [number, number];
@@ -17,7 +17,7 @@ const defaultParams: AvailableParams = {
   texturePosition: [0, 0],
   textureRotation: 0,
   textureScaling: [1, 1],
-  textureColor: "yellow"
+  textureColor: "black"
 };
 
 type ProductState = {
@@ -51,7 +51,6 @@ type StoreState = {
   shirt_menu: boolean;
   ready: boolean;
   locked: boolean;
-  isCustomColor: boolean;
   requestedDialog: boolean;
   activeStore: string;
   isCrossedBorders: boolean;
@@ -64,7 +63,7 @@ type Store = {
 const store = proxy<Store>({
   store15Pro: {
     id: "p_state",
-    material: null,
+    material: "Plastic_1",
     decal: {
       image: defaultDecal,
       component: createTexture(defaultDecal)
@@ -78,7 +77,6 @@ const store = proxy<Store>({
     shirt_menu: false,
     locked: true,
     ready: false,
-    isCustomColor: false,
     requestedDialog: false,
     activeStore: "cases",
     isCrossedBorders: false

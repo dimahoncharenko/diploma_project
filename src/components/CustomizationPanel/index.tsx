@@ -11,10 +11,6 @@ import LinkIcon from "@mui/icons-material/Link";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
@@ -26,20 +22,21 @@ import UndoIcon from "@mui/icons-material/Undo";
 import { useSnapshot } from "valtio";
 
 import { AccordionDetailsWrap } from "./styled";
-import { Decal, createDecals, decalUrls } from "../../utils/decals";
+import { Decal, createDecals, materials } from "../../utils/decals";
 import { AccordionCard } from "../AccordionCard";
 import { store15Pro, storeState } from "../../stores";
+import { ColorPicker } from "../ColorPicker";
 
 type Props = {
   style?: CSSProperties;
   visible?: boolean;
 };
 
-export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
+export const CustomizationPanel = ({ visible = false, style = {} }: Props) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [isScaleLock, setIsScaleLock] = useState(true);
   const { params } = useSnapshot(store15Pro);
-  const { isCustomColor, ready } = useSnapshot(storeState);
+  const { ready } = useSnapshot(storeState);
 
   const [requested, setRequested] = useState(false);
   const [decals, setDecals] = useState<Decal[] | null>(null);
@@ -49,7 +46,7 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
 
 
     const fetchDecals = async () => {
-      const decs = await createDecals(decalUrls);
+      const decs = await createDecals();
       setDecals(decs);
     };
 
@@ -75,10 +72,10 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
           id="panel3bh-header"
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Advanced settings
+            Властивості
           </Typography>
           <Typography sx={{ color: "text.secondary" }}>
-            Adjust position, rotation and scale of a decal
+            Зміна позиції, повороту та масштабу наклейки
           </Typography>
         </AccordionSummary>
         <AccordionDetails
@@ -96,7 +93,7 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                 textAlign: "center",
               }}
             >
-              Positioning
+              Позиціонування
             </Typography>
             {params.texturePosition && (
               <>
@@ -165,7 +162,7 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                 marginBottom: "1em",
               }}
             >
-              Scaling
+              Масштаб
             </Typography>
             <Stack
               spacing={2}
@@ -241,7 +238,7 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                 marginBottom: "1em",
               }}
             >
-              Rotating
+              Поворот
             </Typography>
             <Stack
               spacing={2}
@@ -272,32 +269,8 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
                 store15Pro.params.textureRotation = 0;
               }}
             >
-              reset
+              скасувати
             </Button>
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="column"
-            flex="50%"
-            alignItems="center"
-          >
-            <Typography
-              sx={{
-                color: "text.secondary",
-                fontSize: "1.5rem",
-                fontWeight: "bold",
-                textTransform: "uppercase",
-                marginBottom: "1em",
-              }}
-            >
-              Additions
-            </Typography>
-            <FormGroup>
-              <FormControlLabel
-                label="Decal is repetitive?"
-                control={<Checkbox onChange={() => {}} />}
-              />
-            </FormGroup>
           </Box>
         </AccordionDetails>
       </Accordion>
@@ -311,26 +284,14 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
           id="panel1bh-header"
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Color case
+            Колір кейсу
           </Typography>
           <Typography sx={{ color: "text.secondary" }}>
-            Choose the secondary color to your case
+            Виберіть другорядний колір до Вашого кейсу
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <FormGroup>
-            <FormControlLabel
-              label="Change the color?"
-              control={
-                <Checkbox
-                  value={isCustomColor}
-                  onChange={() => {
-                    storeState.isCustomColor = !isCustomColor;
-                  }}
-                />
-              }
-            />
-          </FormGroup>
+          <ColorPicker/>
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -345,9 +306,9 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
             setRequested(true);
           }}
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Decals</Typography>
+          <Typography sx={{ width: "33%", flexShrink: 0 }}>Наклейки</Typography>
           <Typography sx={{ color: "text.secondary" }}>
-            Choose some glorious texture
+            Виберіть круту наклейку
           </Typography>
         </AccordionSummary>
         <AccordionDetailsWrap
@@ -379,12 +340,30 @@ export const CustimizationPanel = ({ visible = false, style = {} }: Props) => {
           id="panel4bh-header"
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Materials
+            Матеріали
           </Typography>
           <Typography sx={{ color: "text.secondary" }}>
-            Apply a suitable material for your needs
+            Застосуйте матеріал до кейсу
           </Typography>
         </AccordionSummary>
+        <AccordionDetailsWrap
+          style={{
+            overflowY: "auto",
+            minHeight: "max-content",
+          }}
+        >
+          {materials.map((m, index) => (
+            <AccordionCard
+              image={m.thumb}
+              key={index}
+              desc={m.title}
+              title={`Material ${++index}`}
+              onApply={() => {
+                store15Pro.material = m.name;
+              }}
+            />
+          ))}
+        </AccordionDetailsWrap>
       </Accordion>
     </div>
   );

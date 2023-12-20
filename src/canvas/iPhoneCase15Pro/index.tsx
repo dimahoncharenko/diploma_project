@@ -14,7 +14,6 @@ import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 import { store15Pro } from "../../stores";
-import { useEffect } from "react";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -33,18 +32,10 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
     "/models/iPhone15Pro_case/scene-transformed.glb"
   ) as GLTFResult;
 
-  useEffect(() => {
-    materials.material.color = new THREE.Color(params.textureColor);
-    materials.material.needsUpdate = true;
-  }, [params.textureColor]);
-
   return (
-    <group {...props} dispose={null}> 
-      <mesh
-        geometry={nodes.Plane_PBR_0.geometry}
-        material={materials.material}
-        position={[0, 0, 0.004]}
-      >
+    <group {...props} dispose={null}>
+      <ambientLight intensity={1} />
+      <mesh geometry={nodes.Plane_PBR_0.geometry} position={[0, 0, 0.004]}>
         {decal?.component({
           scale: new THREE.Vector3(
             1250 * params.textureScaling[0],
@@ -52,14 +43,16 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             100
           ),
           textureOffset: [...params.texturePosition!],
-          rotateZ: params.textureRotation
+          rotateZ: params.textureRotation,
         })}
       </mesh>
       <mesh
         geometry={nodes.Plane_1_Mat_0.geometry}
         material={materials.material_1}
         position={[0, 0, 0.004]}
-      ></mesh>
+      >
+        <meshBasicMaterial color={params.textureColor} side={THREE.DoubleSide}/>
+      </mesh>
     </group>
   );
 }
