@@ -115,4 +115,6 @@ export function Trader(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
+
+
 useGLTF.preload("/models/shirt_trader/shirt_trader-transformed.glb");

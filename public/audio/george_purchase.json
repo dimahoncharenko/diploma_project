@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "soundFile": "D:\\Projects\\Sketchpad\\ThreeJS Draft\\minecraft-prototype\\public\\audio\\George_purchase.wav",
+    "duration": 1.67
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.09, "value": "X" },
+    { "start": 0.09, "end": 0.17, "value": "B" },
+    { "start": 0.17, "end": 0.36, "value": "C" },
+    { "start": 0.36, "end": 0.41, "value": "E" },
+    { "start": 0.41, "end": 0.59, "value": "F" },
+    { "start": 0.59, "end": 0.66, "value": "B" },
+    { "start": 0.66, "end": 0.80, "value": "C" },
+    { "start": 0.80, "end": 0.94, "value": "B" },
+    { "start": 0.94, "end": 1.22, "value": "F" },
+    { "start": 1.22, "end": 1.43, "value": "B" },
+    { "start": 1.43, "end": 1.67, "value": "X" }
+  ]
+}

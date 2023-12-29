@@ -50,11 +50,11 @@ export function CaseOverlay() {
 
   return (
     <List open={case_menu}>
-      <h1>Type the number to choose action:</h1>
-      <h3>1. Greet</h3>
-      <h3>2. I purchase the product, thanks</h3>
+      <h1>Тисніть на відповідні кнопки для вибору опції:</h1>
+      <h3>1. "Доброго дня"</h3>
+      <h3>2. "Я купую товар, дякую"</h3>
       <h3>
-        <span className="accent">3. Show me what you've got</span>
+        <span className="accent">3. "Покажіть що наявно у асортименті"</span>
       </h3>
     </List>
   );
@@ -65,11 +65,11 @@ export function ShoeOverlay() {
 
   return (
     <List open={shoe_menu}>
-      <h1>Type the number to choose action:</h1>
-      <h3>4. Greet</h3>
-      <h3>5. I purchase the product, thanks</h3>
+      <h1>Тисніть на відповідні кнопки для вибору опції:</h1>
+      <h3>1. "Доброго дня"</h3>
+      <h3>2. "Я купую товар, дякую"</h3>
       <h3>
-        <span className="accent">6. Show me what you've got</span>
+        <span className="accent">5. "Покажіть що наявно у асортименті"</span>
       </h3>
     </List>
   );
@@ -80,11 +80,11 @@ export function ShirtOverlay() {
 
   return (
     <List open={shirt_menu}>
-      <h1>Type the number to choose action:</h1>
-      <h3>7. Greet</h3>
-      <h3>8. I purchase the product, thanks</h3>
+      <h1>Тисніть на відповідні кнопки для вибору опції:</h1>
+      <h3>1. "Доброго дня"</h3>
+      <h3>2. "Я купую товар, дякую"</h3>
       <h3>
-        <span className="accent">9. Show me what you've got</span>
+        <span className="accent">4. "Покажіть що наявно у асортименті"</span>
       </h3>
     </List>
   );

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "soundFile": "D:\\Projects\\Sketchpad\\ThreeJS Draft\\minecraft-prototype\\public\\audio\\George_showcase.wav",
+    "duration": 1.20
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.19, "value": "X" },
+    { "start": 0.19, "end": 0.26, "value": "E" },
+    { "start": 0.26, "end": 0.40, "value": "F" },
+    { "start": 0.40, "end": 0.61, "value": "B" },
+    { "start": 0.61, "end": 0.69, "value": "A" },
+    { "start": 0.69, "end": 0.75, "value": "C" },
+    { "start": 0.75, "end": 0.88, "value": "B" },
+    { "start": 0.88, "end": 1.20, "value": "X" }
+  ]
+}

@@ -30,6 +30,10 @@ export const Rig = ({
   useEffect(() => {
     const active = scene.getObjectByName(`${params?.id}`);
 
+    if (params?.id === "02") {
+      setAllowed(false)
+    }
+
     if (active && active.parent) {
       if (active.parent.userData["2D-camera"]) return setAllowed(false);
       active.parent.localToWorld(position.set(0, 0.5, 0.25));

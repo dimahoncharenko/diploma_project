@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "soundFile": "D:\\Projects\\Sketchpad\\ThreeJS Draft\\minecraft-prototype\\public\\audio\\Lily_showcase.wav",
+    "duration": 0.96
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.20, "value": "X" },
+    { "start": 0.20, "end": 0.44, "value": "B" },
+    { "start": 0.44, "end": 0.51, "value": "F" },
+    { "start": 0.51, "end": 0.79, "value": "B" },
+    { "start": 0.79, "end": 0.96, "value": "X" }
+  ]
+}

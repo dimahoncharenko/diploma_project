@@ -4,6 +4,9 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 import { CapsuleCollider, RigidBody } from "@react-three/rapier";
+import { useSnapshot } from "valtio";
+
+import { storeState } from "../../stores";
 
 const SPEED = 7;
 let direction = new THREE.Vector3();
@@ -14,18 +17,34 @@ export const Player = () => {
   const ref = useRef<RAPIER.RigidBody>(null);
   const colliderRef = useRef<any>(null);
   const [, get] = useKeyboardControls();
+  const { isCrossedBorders } = useSnapshot(storeState);
 
   useFrame((state: any) => {
     if (!ref.current || !colliderRef.current) return;
     const { forward, backward, left, right } = get();
 
+    if (forward && backward) return;
+
+    let moveForward = +forward;
+    let moveBackward = +backward;
+    let moveLeft = +left;
+    let moveRight = +right;
+
     let velocity = ref.current.linvel();
+
+    if (isCrossedBorders) {
+      moveForward && (moveForward = 0, moveBackward = -1);
+      moveBackward && (moveBackward = 0, moveForward = -1);
+      moveLeft && (moveLeft = 0, moveRight = -1);
+      moveRight && (moveRight = 0, moveLeft = -1);
+    }
+
     // update camera
     const { x, y, z } = ref.current.translation();
     state.camera.position.set(x, y + 1.5, z);
     // movement
-    frontVector.set(0, 0, +backward - +forward);
-    sideVector.set(+left - +right, 0, 0);
+    frontVector.set(0, 0, moveBackward - moveForward);
+    sideVector.set(moveLeft - moveRight, 0, 0);
 
     direction
       .subVectors(frontVector, sideVector)
@@ -46,7 +65,7 @@ export const Player = () => {
         colliders={false}
         mass={1}
         type="dynamic"
-        position={[1, 20, 25]}
+        position={[1, 25, 21]}
         enabledRotations={[false, false, false]}
       >
         <CapsuleCollider ref={colliderRef} args={[0.45, 0.45]} />

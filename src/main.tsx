@@ -8,15 +8,16 @@ import { App } from "./App";
 import { CustomizationPanel } from "./components/CustomizationPanel";
 import { CaseOverlay, ShoeOverlay, ShirtOverlay } from "./components/Overlay";
 import { Picker } from "./canvas/Shoe/Picker";
-import { storeState } from "./stores";
+import { storeShoe, storeState } from "./stores";
 import { Customizer as ShirtCustomizer } from "./canvas/Shirt/Customizer";
+import { Customizer as ShoeCustomizer } from "./canvas/Shoe/Customizer";
 
 const advices = [
-  "Get close to a trader to communicate",
-  "You can wander the area as long as you wish",
-  "There are: shoe store and case store",
-  "You can design your product however you want",
-  "Point to trader's head to open a dialog menu",
+  "Підійдіть до агента для взаємодії",
+  "Ви можете блукати по сцені скільки Вам завгодно",
+  "Наявні 3 магазину: магазин кейсів, одягу та взуття",
+  "Ви можете створити продукт за Вашим побажанням",
+  "Наведіть курсор миші на агента, щоб відкрити діалогове вікно",
 ];
 
 function Overlay() {
@@ -59,6 +60,7 @@ function Overlay() {
         href="#"
         onClick={() => {
           document.body.style.cursor = "default";
+          storeShoe.current = null;
           setLocation("/");
         }}
       >
@@ -75,6 +77,7 @@ function Overlay() {
         <ShoeOverlay />
         <ShirtOverlay />
         <ShirtCustomizer />
+        <ShoeCustomizer />
       </div>
     </>
   );

@@ -11,7 +11,7 @@ type AvailableParams = {
   textureColor?: CSSProperties["color"]
 };
 
-type ShoeParts = "laces" | "mesh" | "caps" | "inner" | "sole" | "stripes" | "band" | "patch";
+type ShoeParts = "Laces" | "Body" | "Heel" | "Interior" | "Sole" | "stripes" | "Eyelets" | "Lace Cage";
 
 const defaultParams: AvailableParams = {
   texturePosition: [0, 0],
@@ -30,6 +30,7 @@ type ProductState = {
 type ShoeState = {
   id: "shoe_state";
   current: ShoeParts | null;
+  shoe_name: string;
   items: {
     [P in ShoeParts]: string;
   }
@@ -84,14 +85,15 @@ const store = proxy<Store>({
   shoeState: {
     id: "shoe_state",
     current: null,
+    shoe_name: "Nike",
     items: {
-      band: "#ffffff",
-      caps: "#ffffff",
-      inner: "#ffffff",
-      laces:"#ffffff",
-      mesh: "#ffffff",
-      patch: "#ffffff",
-      sole: "#ffffff",
+      Eyelets: "#ffffff",
+      Heel: "#ffffff",
+      Interior: "#ffffff",
+      Laces:"#ffffff",
+      Body: "#ffffff",
+      "Lace Cage": "#ffffff",
+      Sole: "#ffffff",
       stripes: "#ffffff"
     }
   },

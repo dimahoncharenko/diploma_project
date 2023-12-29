@@ -9,7 +9,7 @@ export function Customizer() {
     const snap = useSnapshot(storeShirt);
     const [, params] = useRoute("/item/:id");
 
-    if (params?.id !== "03") return null;
+    if (params?.id !== "02") return null;
 
     return (
       <div className="customizer" style={{ display: "block", position: "fixed", bottom: "-3em", height: "max-content" }}>

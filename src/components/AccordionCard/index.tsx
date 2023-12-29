@@ -25,7 +25,7 @@ export const AccordionCard = ({ image, title, desc, onApply }: Props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={onApply}>Apply</Button>
+        <Button size="small" onClick={onApply}>Вибір</Button>
       </CardActions>
     </Card>
   );
