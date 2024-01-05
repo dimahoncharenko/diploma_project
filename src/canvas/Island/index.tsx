@@ -2881,20 +2881,18 @@ export function Island(props: JSX.IntrinsicElements["group"]) {
         name="water"
       >
         {/* Water */}
-        {/* <WaterShader
+        <WaterShader
           geom={nodes.Grid.geometry}
           position={[0, 0.087, 0]}
           scale={[7.714, 7, 7.714]}
-        /> */}
+        />
 
-        
-          <mesh
+        {/* <mesh
             geometry={nodes.Grid.geometry}
             material={materials["Material.011"]}
             position={[0, 0.087, 0]}
             scale={[7.714, 7.714, 7.714]}
-          /> 
-       
+          />  */}
 
         {/* Water */}
       </RigidBody>

@@ -30,10 +30,9 @@ import { Display } from "../Display";
 
 type Props = {
   style?: CSSProperties;
-  visible?: boolean;
 };
 
-export const CustomizationPanel = ({ visible = false, style = {} }: Props) => {
+export const CustomizationPanel = ({ style = {} }: Props) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [isScaleLock, setIsScaleLock] = useState(true);
   const { params } = useSnapshot(store15Pro);

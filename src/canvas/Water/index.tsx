@@ -29,12 +29,15 @@ export function WaterShader({ geom, ...props }: Props) {
     [waterNormals]
   );
   useFrame(
-    (_, delta) =>
-      ref.current &&
-      ref.current.material &&
-      (ref.current.material.uniforms.time.value += delta / 4)
-  );
+    (_, delta) => {
+      if (ref.current &&
+        ref.current.material) {
+          // @ts-ignore
+          ref.current.material.uniforms && (ref.current.material.uniforms.time.value += delta / 4)
+      }
+    });
   return (
+    // @ts-ignore
     <water
       ref={ref}
       args={[geom, config]}

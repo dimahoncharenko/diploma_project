@@ -1,7 +1,8 @@
 import { Environment } from "@react-three/drei";
 
 import { Room } from ".";
-import { Pants } from "../Shirt/Pants";
+// import { Pants } from "../Shirt/Pants";
+import { Shirt } from "../Shirt";
 import { Nike } from "../Shoe/Nike_pegasus";
 import { Display } from "../../components/Display";
 
@@ -27,7 +28,7 @@ export const Rooms = () => {
           <Environment files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/potsdamer_platz_1k.hdr" />
           <ambientLight color="white" intensity={1} />
           <pointLight color="white" intensity={1.5} position={[0, 0, -3]} />
-          <Pants position={[0, -0.5, -1.95]} scale={0.2} />
+          <Shirt position={[0, 0, -2]} scale={1} />
         </Room>
       </Display>
 
