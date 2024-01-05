@@ -24,8 +24,9 @@ import { useSnapshot } from "valtio";
 import { AccordionDetailsWrap } from "./styled";
 import { Decal, createDecals, materials } from "../../utils/decals";
 import { AccordionCard } from "../AccordionCard";
-import { store15Pro, storeState } from "../../stores";
+import { store15Pro } from "../../stores";
 import { ColorPicker } from "../ColorPicker";
+import { Display } from "../Display";
 
 type Props = {
   style?: CSSProperties;
@@ -36,7 +37,6 @@ export const CustomizationPanel = ({ visible = false, style = {} }: Props) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [isScaleLock, setIsScaleLock] = useState(true);
   const { params } = useSnapshot(store15Pro);
-  const { ready } = useSnapshot(storeState);
 
   const [requested, setRequested] = useState(false);
   const [decals, setDecals] = useState<Decal[] | null>(null);
@@ -57,8 +57,6 @@ export const CustomizationPanel = ({ visible = false, style = {} }: Props) => {
     (panel: string) => (_: SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
-
-  if (!visible || !ready) return null;
 
   return (
     <div style={style} id="customization-panel">
@@ -193,7 +191,9 @@ export const CustomizationPanel = ({ visible = false, style = {} }: Props) => {
                 setIsScaleLock(!isScaleLock);
               }}
             >
-              {isScaleLock ? <LinkOffIcon /> : <LinkIcon />}
+              <Display criteria={isScaleLock} fallback={<LinkIcon />}>
+                <LinkOffIcon />
+              </Display>
             </Button>
             <Stack
               spacing={2}

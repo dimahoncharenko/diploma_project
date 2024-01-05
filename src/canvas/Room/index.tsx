@@ -39,12 +39,6 @@ export const Room = ({ id, bg = "#ffffff", children, ...props }: RoomProps) => {
         >
           <color attach="background" args={[bg]} />
           {children}
-          <Circle
-            scale={[1, 0.7, 1]}
-            args={[0.6, 80]}
-            rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, -0.33, -2]}
-          />
         </MeshPortalMaterial>
       </mesh>
     </group>

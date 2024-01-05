@@ -1,8 +1,13 @@
 import * as THREE from "three";
 import * as RAPIER from "@dimforge/rapier3d-compat";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useRoute } from "wouter";
 import { useFrame } from "@react-three/fiber";
-import { useKeyboardControls } from "@react-three/drei";
+import {
+  PointerLockControls,
+  PointerLockControlsProps,
+  useKeyboardControls,
+} from "@react-three/drei";
 import { CapsuleCollider, RigidBody } from "@react-three/rapier";
 import { useSnapshot } from "valtio";
 
@@ -16,8 +21,23 @@ const sideVector = new THREE.Vector3();
 export const Player = () => {
   const ref = useRef<RAPIER.RigidBody>(null);
   const colliderRef = useRef<any>(null);
+  const pointerRef =
+    useRef<
+      PointerLockControlsProps
+    >(null);
   const [, get] = useKeyboardControls();
+  const [, params] = useRoute("/item/:id");
   const { isCrossedBorders } = useSnapshot(storeState);
+
+  useEffect(() => {
+    if (pointerRef.current) {
+      if (!params?.id) {
+        pointerRef.current.lock && pointerRef.current.lock();
+      } else {
+        pointerRef.current.unlock && pointerRef.current.unlock();
+      }
+    }
+  }, [params?.id]);
 
   useFrame((state: any) => {
     if (!ref.current || !colliderRef.current) return;
@@ -33,10 +53,10 @@ export const Player = () => {
     let velocity = ref.current.linvel();
 
     if (isCrossedBorders) {
-      moveForward && (moveForward = 0, moveBackward = -1);
-      moveBackward && (moveBackward = 0, moveForward = -1);
-      moveLeft && (moveLeft = 0, moveRight = -1);
-      moveRight && (moveRight = 0, moveLeft = -1);
+      moveForward && ((moveForward = 0), (moveBackward = -1));
+      moveBackward && ((moveBackward = 0), (moveForward = -1));
+      moveLeft && ((moveLeft = 0), (moveRight = -1));
+      moveRight && ((moveRight = 0), (moveLeft = -1));
     }
 
     // update camera
@@ -58,7 +78,12 @@ export const Player = () => {
     );
   });
   return (
-    <group>
+    <>
+
+      <PointerLockControls 
+        // @ts-ignore 
+        ref={pointerRef} 
+        pointerSpeed={1} />
       <RigidBody
         name="player"
         ref={ref}
@@ -70,6 +95,6 @@ export const Player = () => {
       >
         <CapsuleCollider ref={colliderRef} args={[0.45, 0.45]} />
       </RigidBody>
-    </group>
+    </>
   );
 };

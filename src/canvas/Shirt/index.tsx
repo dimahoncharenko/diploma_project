@@ -25,7 +25,7 @@ export function Shirt(props: JSX.IntrinsicElements["mesh"]) {
   const snap = useSnapshot(storeShirt);
   const texture = useTexture(`/models/shirt/${snap.current_decal}.png`);
   const { nodes, materials } = useGLTF(
-    "/models/shirt/shirt_baked_collapsed-transformed.glb"
+    "/models/shirt/shirt.glb"
   ) as GLTFResult;
   useFrame((_, delta) => {
     easing.dampC(materials.lambert1.color, snap.current_color, 0.25, delta);
@@ -49,4 +49,4 @@ export function Shirt(props: JSX.IntrinsicElements["mesh"]) {
   );
 }
 
-useGLTF.preload("/models/shirt/shirt_baked_collapsed-transformed.glb");
+useGLTF.preload("/models/shirt/shirt.glb");

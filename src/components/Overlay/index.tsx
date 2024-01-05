@@ -30,7 +30,7 @@ function List({ children, open }: Props) {
         position: "fixed",
         top: "50%",
         listStyleType: "none",
-        color: "white"
+        color: "white",
       }}
       variants={container}
       initial="hidden"

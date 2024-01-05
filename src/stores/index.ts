@@ -39,6 +39,7 @@ type ShoeState = {
 type ShirtStore = {
   id: "shirt_state",
   colors: CSSProperties["color"][],
+  cloth_type: string,
   decals: string[],
   decalSize: number;
   current_color: string;
@@ -55,6 +56,7 @@ type StoreState = {
   requestedDialog: boolean;
   activeStore: string;
   isCrossedBorders: boolean;
+  current_slide: number;
 }
 
 type Store = {
@@ -80,7 +82,8 @@ const store = proxy<Store>({
     ready: false,
     requestedDialog: false,
     activeStore: "cases",
-    isCrossedBorders: false
+    isCrossedBorders: false,
+    current_slide: 0
   },
   shoeState: {
     id: "shoe_state",
@@ -99,6 +102,7 @@ const store = proxy<Store>({
   },
   shirtStore: {
     id: "shirt_state",
+    cloth_type: "shirt",
     colors: ['#ccc', '#EFBD4E', '#80C670', '#726DE8', '#EF674E', '#353934'],
     decals: ['react', 'three2', 'pmndrs', 'nau'],
     decalSize: 1,

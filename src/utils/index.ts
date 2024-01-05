@@ -1,4 +1,5 @@
 import { GLTFExporter } from "three/examples/jsm/Addons.js";
+import * as THREE from "three";
 
 export const match_lips = {
   A: "viseme_PP",
@@ -52,4 +53,11 @@ export const exportScene = (scene: any) => {
         onlyVisible: true,
       }
     );
+}
+
+export const changeUVWrapping = (maps: THREE.Texture[], wrappingOption: THREE.Wrapping) => {
+  for (const map of maps) {
+    map.wrapS = map.wrapT = wrappingOption;
+    map.needsUpdate = true;
+  }
 }

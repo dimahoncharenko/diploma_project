@@ -71,7 +71,8 @@ export function Nike(props: JSX.IntrinsicElements['group']) {
       e.object instanceof THREE.Mesh && (storeShoe.current = e.object.material.name);
     }}
     >
-      <hemisphereLight args={[0xffffff, 0x000000, 1]} />
+      <hemisphereLight args={[0xffffff, 0x000000, 2]} />
+
      
       <mesh geometry={nodes.Accessory_1.geometry}>
         <meshStandardMaterial {...materials.NikeShoe} color={snap.items.Eyelets} name="Eyelets"/>

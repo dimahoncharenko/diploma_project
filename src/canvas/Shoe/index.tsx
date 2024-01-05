@@ -83,42 +83,34 @@ export function Shoe(props: JSX.IntrinsicElements["group"]) {
     >
       <ambientLight intensity={1} />
       <mesh
-        material-color={snap.items.laces}
         geometry={nodes.shoe.geometry}
         material={materials.laces}
       />
       <mesh
-        material-color={snap.items.mesh}
         geometry={nodes.shoe_1.geometry}
         material={materials.mesh}
       />
       <mesh
-        material-color={snap.items.caps}
         geometry={nodes.shoe_2.geometry}
         material={materials.caps}
       />
       <mesh
-        material-color={snap.items.inner}
         geometry={nodes.shoe_3.geometry}
         material={materials.inner}
       />
       <mesh
-        material-color={snap.items.sole}
         geometry={nodes.shoe_4.geometry}
         material={materials.sole}
       />
       <mesh
-        material-color={snap.items.stripes}
         geometry={nodes.shoe_5.geometry}
         material={materials.stripes}
       />
       <mesh
-        material-color={snap.items.band}
         geometry={nodes.shoe_6.geometry}
         material={materials.band}
       />
       <mesh
-        material-color={snap.items.patch}
         geometry={nodes.shoe_7.geometry}
         material={materials.patch}
       />

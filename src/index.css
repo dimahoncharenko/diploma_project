@@ -33,6 +33,30 @@ body {
   color: black;
 }
 
+button {
+  background-color: #dd5c18;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bolder;
+  pointer-events: all;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  box-shadow: inset 0 0 0 0.09px black;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 1em 2em;
+}
+
+button:hover {
+  box-shadow: inset 250px 0 0 0 black;
+  transform: scale(1.1);
+}
+
+/* MAIN HUD */
+
 .dot {
   position: absolute;
   top: 50%;
@@ -44,26 +68,17 @@ body {
   border: 2px solid white;
 }
 
-button {
-  width: 32px;
-  height: 32px;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-  background: white;
-  border: 1px solid transparent;
-  border-bottom: 3px solid #a0a0a0;
-  border-radius: 3px;
-  padding: 8px 24px;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  width: auto;
-  height: 45px;
+.top-link {
+  position: absolute;
+  top: 2em;
+  left: 85%;
+  font-size: .8em;
+  color: #eaeaea;
+  text-decoration: none;
+  font-weight: 700;
 }
+
+/* MAIN MENU */
 
 .fullscreen {
   position: absolute;
@@ -76,13 +91,12 @@ button {
   justify-content: center;
   align-items: center;
   transition: all 1s;
-  z-index: 9999;
+  z-index: 20000;
 }
 
 .stack {
-  width: 100%;
-  min-height: 30vh;
   display: flex;
+  min-height: 20vh;
   flex-direction: column;
   align-items: center;
   color: #606060;
@@ -90,6 +104,7 @@ button {
 
 .bg {
   background: #101010;
+  opacity: .99;
 }
 
 .fullscreen .logout {
@@ -101,49 +116,13 @@ button {
   margin: 10px auto;
 }
 
-.fullscreen .continue-link {
-  text-decoration: none;
-  transition: all 1s;
-  width: 20%;
-  text-align: center;
-}
-
-.fullscreen.notready .continue-link {
-  cursor: auto;
-  color: #606060;
-}
-
-.fullscreen.ready .continue-link {
-  cursor: pointer;
-  color: white;
-}
-
 .fullscreen.clicked {
   pointer-events: none;
   opacity: 0;
 }
 
-button {
-  background-color: #dd5c18;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-weight: bolder;
-  pointer-events: all;
-  cursor: pointer;
-  transition: all 0.4s ease-in-out;
-  box-shadow: inset 0 0 0 0.09px black;
-
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px 30px;
-}
-
-button:hover {
-  box-shadow: inset 250px 0 0 0 black;
-  transform: scale(1.1);
+.fullscreen.ready .stack {
+  display: none;
 }
 
 /* CUSTOMIZER */
@@ -175,12 +154,13 @@ button:hover {
   right: 40px;
 }
 
-/* PICKER */
+/* SHIRT OVERLAY */
 
 .color-options {
   position: absolute;
   left: 1em;
   bottom: 10em;
+  padding: .5em;
 }
 
 .circle {
@@ -188,7 +168,7 @@ button:hover {
   height: 30px;
   border-radius: 50%;
   border: 2px solid white;
-  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+  transition: transform 0.3s cubic-bezier(0.85, 0, 0.15, 1);
 }
 
 .circle:hover {
@@ -200,12 +180,6 @@ button:hover {
   position: absolute;
   left: 50px;
   bottom: 40px;
-}
-
-.decals p {
-  font-family: 'Inter var';
-  font-size: 0.7rem;
-  padding-bottom: 15px;
 }
 
 .decals img {
@@ -223,38 +197,7 @@ button:hover {
   cursor: pointer;
 }
 
-.decals--position {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  color: #00000056;
-  font-size: 0.6rem;
-  border: 1px solid #00000000;
-  padding: 10px 10px;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border 1s ease;
-}
-
-.decals--position:hover {
-  color: black;
-  border: 1px solid #00000056;
-}
-
 .decals--container {
   display: flex;
   gap: 20px;
 }
-
-@media screen and (max-width: 600px) {
-  .color-options {
-    margin-bottom: 20px;
-    flex-direction: column;
-    position: absolute;
-    top: 50%;
-    right: 40px;
-    transform: translateY(-50%);
-  }
-}
-
