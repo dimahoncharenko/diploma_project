@@ -223,11 +223,11 @@ export function Trader(props: JSX.IntrinsicElements["group"]) {
         position={[0, 0, 1.2]}
         scale={0.3}
         onPointerEnter={(e) => {
-          if (currentAnim !== "Sitting Idle" || e.distance > 4) return;
+          if (currentAnim !== "Sitting Idle" || e.distance > 5) return;
           storeState.shoe_menu = true;
         }}
         onPointerLeave={(e) => {
-          if (currentAnim !== "Sitting Idle" || e.distance > 4) return;
+          if (currentAnim !== "Sitting Idle" || e.distance > 5) return;
           storeState.shoe_menu = false;
         }}
       >

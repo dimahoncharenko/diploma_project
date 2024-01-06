@@ -25,6 +25,18 @@ export const lily_purchase_audio = new Audio("/audio/Lily_purchase.wav");
 export const lily_greet_audio = new Audio("/audio/Lily_greet.wav");
 export const lily_showcase_audio = new Audio("/audio/Lily_showcase.wav");
 
+export const keyboardMap = [
+  { name: "forward", keys: ["ArrowUp", "w", "W", "ц", "Ц"] },
+  { name: "backward", keys: ["ArrowDown", "s", "S", "і", "І"] },
+  { name: "left", keys: ["ArrowLeft", "a", "A", "ф", "Ф"] },
+  { name: "right", keys: ["ArrowRight", "d", "D", "в", "В"] },
+  { name: "greetings", keys: ["1"] },
+  { name: "purchase", keys: ["2"] },
+  { name: "show_case", keys: ["3"] },
+  { name: "show_shirt", keys: ["4"] },
+  { name: "show_shoe", keys: ["5"] },
+]
+
 export const downloadScene = (file: Blob, name: string) => {
     const link = document.createElement("a");
     link.style.display = "none";

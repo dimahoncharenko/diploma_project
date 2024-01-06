@@ -21,10 +21,7 @@ const sideVector = new THREE.Vector3();
 export const Player = () => {
   const ref = useRef<RAPIER.RigidBody>(null);
   const colliderRef = useRef<any>(null);
-  const pointerRef =
-    useRef<
-      PointerLockControlsProps
-    >(null);
+  const pointerRef = useRef<PointerLockControlsProps>(null);
   const [, get] = useKeyboardControls();
   const [, params] = useRoute("/item/:id");
   const { isCrossedBorders } = useSnapshot(storeState);
@@ -79,11 +76,11 @@ export const Player = () => {
   });
   return (
     <>
-
-      <PointerLockControls 
-        // @ts-ignore 
-        ref={pointerRef} 
-        pointerSpeed={1} />
+      <PointerLockControls
+        // @ts-ignore
+        ref={pointerRef}
+        pointerSpeed={1}
+      />
       <RigidBody
         name="player"
         ref={ref}

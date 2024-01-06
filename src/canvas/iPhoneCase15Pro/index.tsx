@@ -26,11 +26,13 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+function Model(props: JSX.IntrinsicElements["group"]) {
   const { decal, params } = useSnapshot(store15Pro);
   const { nodes, materials } = useGLTF(
     "/models/iPhone15Pro_case/scene-transformed.glb"
   ) as GLTFResult;
+
+    console.log("I rendered");
 
   return (
     <group {...props} dispose={null}>
@@ -56,5 +58,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
     </group>
   );
 }
+
+export default Model;
 
 useGLTF.preload("/models/iPhone15Pro_case/scene-transformed.glb");

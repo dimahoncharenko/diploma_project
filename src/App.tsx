@@ -21,9 +21,10 @@ import { StoreSelector } from "./components/StoreSelector";
 
 import { Rooms } from "./canvas/Room/Rooms";
 import { Offices } from "./canvas/Office/Offices";
+import { Display } from "./components/Display";
 
 import { storeState } from "./stores";
-import { Display } from "./components/Display";
+import { keyboardMap } from "./utils";
 
 extend(geometry);
 
@@ -33,20 +34,9 @@ export const App = () => {
 
   return (
     <KeyboardControls
-      map={[
-        { name: "forward", keys: ["ArrowUp", "w", "W", "ц", "Ц"] },
-        { name: "backward", keys: ["ArrowDown", "s", "S", "і", "І"] },
-        { name: "left", keys: ["ArrowLeft", "a", "A", "ф", "Ф"] },
-        { name: "right", keys: ["ArrowRight", "d", "D", "в", "В"] },
-        { name: "greetings", keys: ["1"] },
-        { name: "purchase", keys: ["2"] },
-        { name: "show_case", keys: ["3"] },
-        { name: "show_shirt", keys: ["4"] },
-        { name: "show_shoe", keys: ["5"] },
-      ]}
+      map={keyboardMap}
     >
       <Canvas
-        shadows={true}
         camera={{ fov: 45, position: [0, 0, 5] }}
         frameloop={!!params?.id ? "always" : "demand"}
         performance={{

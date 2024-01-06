@@ -21,7 +21,7 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Shirt(props: JSX.IntrinsicElements["mesh"]) {
+function Model(props: JSX.IntrinsicElements["mesh"]) {
   const snap = useSnapshot(storeShirt);
   const texture = useTexture(`/models/shirt/${snap.current_decal}.png`);
   const { nodes, materials } = useGLTF(
@@ -48,5 +48,7 @@ export function Shirt(props: JSX.IntrinsicElements["mesh"]) {
     </mesh>
   );
 }
+
+export default Model;
 
 useGLTF.preload("/models/shirt/shirt.glb");
