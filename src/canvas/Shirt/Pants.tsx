@@ -42,7 +42,7 @@ const material_presets = {
   },
 };
 
-export function Pants(props: JSX.IntrinsicElements["group"]) {
+function Pants(props: JSX.IntrinsicElements["group"]) {
   const [materialId] = useState<MaterialTypes>("Black Leather");
   
   const { nodes, materials } = useGLTF(
@@ -134,4 +134,4 @@ export function Pants(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/models/pants/pants2.glb");
+export default Pants;

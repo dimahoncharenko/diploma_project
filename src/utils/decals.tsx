@@ -54,29 +54,173 @@ export const decals = [
   wolf_1,
   wolf_2,
   wolf_3,
-  wolf_4
+  wolf_4,
 ];
 
 export const materials = [
   {
     title: "Plastic Standard",
-    thumb: "/textures/case_materials/Plastic_1/Plastic_1_h.png",
+    thumb: "/textures/case_materials/Plastic_1/Plastic_1_high.png",
     name: "Plastic_1",
   },
   {
     title: "Abstract",
-    thumb: "/textures/case_materials/Abstract_1/Abstract_1_h.png",
+    thumb: "/textures/case_materials/Abstract_1/Abstract_1_high.png",
     name: "Abstract_1",
   },
   {
-    title: "Sci-Fi",
-    thumb: "/textures/case_materials/Sci-Fi_1/Sci-Fi_1_h.png",
+    title: "Sci-Fi 1",
+    thumb: "/textures/case_materials/Sci-Fi_1/Sci-Fi_1_high.png",
     name: "Sci-Fi_1",
   },
   {
-    title: "Sci-Fi V2",
-    thumb: "/textures/case_materials/Sci-Fi_2/Sci-Fi_2_h.png",
+    title: "Sci-Fi 2",
+    thumb: "/textures/case_materials/Sci-Fi_2/Sci-Fi_2_high.png",
     name: "Sci-Fi_2",
+  },
+  {
+    title: "Sci-Fi 3",
+    thumb: "/textures/case_materials/Sci-Fi_3/Sci-Fi_3_high.png",
+    name: "Sci-Fi_3",
+  },
+  {
+    title: "Metallic 1",
+    thumb: "/textures/case_materials/Metal_1/Metal_1_high.png",
+    name: "Metal_1",
+  },
+  {
+    title: "Metallic 2",
+    thumb: "/textures/case_materials/Metal_2/Metal_2_high.png",
+    name: "Metal_2",
+  },
+  {
+    title: "Metallic 3",
+    thumb: "/textures/case_materials/Metal_3/Metal_3_high.png",
+    name: "Metal_3",
+  },
+  {
+    title: "Metallic 4",
+    thumb: "/textures/case_materials/Metal_4/Metal_4_high.png",
+    name: "Metal_4",
+  },
+  {
+    title: "Metallic 5",
+    thumb: "/textures/case_materials/Metal_5/Metal_5_high.png",
+    name: "Metal_5",
+  },
+  {
+    title: "Metallic 6",
+    thumb: "/textures/case_materials/Metal_6/Metal_6_high.png",
+    name: "Metal_6",
+  },
+  {
+    title: "Metallic 7",
+    thumb: "/textures/case_materials/Metal_7/Metal_7_high.png",
+    name: "Metal_7",
+  },
+  {
+    title: "Metallic 8",
+    thumb: "/textures/case_materials/Metal_8/Metal_8_high.png",
+    name: "Metal_8",
+  },
+  {
+    title: "Metallic 9",
+    thumb: "/textures/case_materials/Metal_9/Metal_9_high.png",
+    name: "Metal_9",
+  },
+  {
+    title: "Metallic 10",
+    thumb: "/textures/case_materials/Metal_10/Metal_10_high.png",
+    name: "Metal_10",
+  },
+];
+
+export type ShirtTexture = {
+  name: string;
+  url: string;
+};
+export const shirt_textures: ShirtTexture[] = [
+  {
+    name: "Sink (Default)",
+    url: "/textures/shirt_textures/Silk_bc.jpg",
+  },
+  {
+    name: "Camo",
+    url: "/textures/shirt_textures/Camo_bc.jpg",
+  },
+  {
+    name: "Camo 2",
+    url: "/textures/shirt_textures/Camo_2_bc.jpg",
+  },
+  {
+    name: "Camo 3",
+    url: "/textures/shirt_textures/Camo_3_bc.jpg",
+  },
+  {
+    name: "Fabric",
+    url: "/textures/shirt_textures/Fabric_bc.jpg",
+  },
+  {
+    name: "Fabric 2",
+    url: "/textures/shirt_textures/Fabric_2_bc.jpg",
+  },
+  {
+    name: "Fabric 3",
+    url: "/textures/shirt_textures/Fabric_3_bc.jpg",
+  },
+  {
+    name: "Fabric 4",
+    url: "/textures/shirt_textures/Fabric_4_bc.jpg",
+  },
+  {
+    name: "Fabric 5",
+    url: "/textures/shirt_textures/Fabric_5_bc.jpg",
+  },
+  {
+    name: "Knited",
+    url: "/textures/shirt_textures/Knited_bc.jpg",
+  },
+  {
+    name: "Nylon",
+    url: "/textures/shirt_textures/Nylon_bc.jpg",
+  },
+  {
+    name: "Stylized",
+    url: "/textures/shirt_textures/Stylized_bc.jpg",
+  },
+];
+
+export type ShoeTexture = {
+  name: string;
+  url_files: {
+    [P in string | "map"]: string;
+  };
+};
+export const shoe_textures: ShoeTexture[] = [
+  {
+    name: "Hummingbird",
+    url_files: { 
+      map: "/textures/shoe_textures/Hummingbird/bs.jpg", 
+      normalMap: "/textures/shoe_textures/Hummingbird/normal.jpg", 
+      roughnessMap: "/textures/shoe_textures/Hummingbird/rough.jpg" },
+  },
+  {
+    name: "Cats",
+    url_files: {
+      map: "/textures/shoe_textures/Cats/bs.jpg",
+      heightMap: "/textures/shoe_textures/Cats/height.jpg",
+      normalMap: "/textures/shoe_textures/Cats/normal.jpg",
+      roughnessMap: "/textures/shoe_textures/Cats/rough.jpg",
+    },
+  },
+  {
+    name: "Kva",
+    url_files: {
+      map: "/textures/shoe_textures/Kva/bs.jpg",
+      heightMap: "/textures/shoe_textures/Kva/height.jpg",
+      normalMap: "/textures/shoe_textures/Kva/normal.jpg",
+      roughnessMap: "/textures/shoe_textures/Kva/rough.jpg",
+    },
   },
 ];
 
@@ -109,10 +253,10 @@ export const createTexture = (path: string) => {
 
     const [aoMap, hMap, mMap, rMap, nMap] = useTexture([
       `/textures/case_materials/${material}/${material}_ao.jpg`,
-      `/textures/case_materials/${material}/${material}_h.png`,
-      `/textures/case_materials/${material}/${material}_m.jpg`,
-      `/textures/case_materials/${material}/${material}_r.jpg`,
-      `/textures/case_materials/${material}/${material}_n.jpg`,
+      `/textures/case_materials/${material}/${material}_high.png`,
+      `/textures/case_materials/${material}/${material}_metal.jpg`,
+      `/textures/case_materials/${material}/${material}_rough.jpg`,
+      `/textures/case_materials/${material}/${material}_normal.jpg`,
     ]);
 
     useEffect(() => {
@@ -126,6 +270,8 @@ export const createTexture = (path: string) => {
         metalnessMap: mMap,
         displacementMap: hMap,
         side: THREE.DoubleSide,
+        displacementScale: -1.05,
+        displacementBias: 1,
       });
 
       if (decal_material.map) {
@@ -146,16 +292,6 @@ export const createTexture = (path: string) => {
 export const createDecals = () => {
   let res: Decal[] = [];
 
-  // const modules = import.meta.glob("/decals/*.jpg") as any;
-  // for (const module in modules) {
-  //   if (Object.prototype.hasOwnProperty.call(modules, module)) {
-  //     res.push({
-  //       image: module,
-  //       component: createTexture(module),
-  //     });
-  //   }
-  // }
-  
   for (const decal of decals) {
     let img = decal;
     res.push({

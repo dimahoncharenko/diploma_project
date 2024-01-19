@@ -1,45 +1,76 @@
 import { useSnapshot } from "valtio";
-import { AiFillCamera } from "react-icons/ai";
+// import { AiFillCamera } from "react-icons/ai";
 import Slider from "@mui/material/Slider";
+import SimpleBar from "simplebar-react";
+import "simplebar-react/dist/simplebar.min.css";
 
 import { storeShirt } from "../../stores";
+import { shirt_textures } from "../../utils/decals";
+
+import {
+  CustomizerWrapper,
+  ColorOptions,
+  Circle,
+  Decals,
+  DecalsContainer
+} from "./styled.ts";
 
 export function Customizer() {
   const snap = useSnapshot(storeShirt);
 
   return (
-    <div
-      className="customizer"
-      style={{
-        display: "block",
-        position: "fixed",
-        bottom: "-3em",
-        height: "max-content",
-      }}
-    >
-      <div className="color-options">
+    <CustomizerWrapper>
+      <ColorOptions>
         {snap.colors.map((color) => (
-          <div
+          <Circle
             key={color}
-            className="circle"
             style={{ background: color }}
             onClick={() => (storeShirt.current_color = color || "white")}
-          ></div>
+          />
         ))}
-      </div>
-      <div className="decals">
-        <div className="decals--container">
-          {snap.decals.map((decal) => (
-            <div
-              key={decal}
-              className={`decal`}
-              onClick={() => (storeShirt.current_decal = decal)}
-            >
-              <img src={`/models/shirt/${decal}_thumb.png`} alt="brand" />
-            </div>
-          ))}
-        </div>
-      </div>
+      </ColorOptions>
+
+      <Decals
+        style={{
+          bottom: "110px",
+          width: "100%",
+        }}
+      >
+        <SimpleBar>
+          <DecalsContainer>
+            {snap.decals.map((decal) => (
+              <div
+                key={decal}
+                onClick={() => (storeShirt.current_decal = decal)}
+              >
+                <img
+                  className={decal === snap.current_decal ? "active" : ""}
+                  src={`/models/shirt/${decal}_thumb.png`}
+                  alt="Decal"
+                />
+              </div>
+            ))}
+          </DecalsContainer>
+        </SimpleBar>
+      </Decals>
+      <Decals>
+        <SimpleBar style={{ maxWidth: "calc(100vw - (100px + .6em))" }}>
+          <DecalsContainer>
+            {shirt_textures.map((texture) => (
+              <div
+                key={texture.name}
+                onClick={() => (storeShirt.texture = texture)}
+              >
+                <img
+                  className={texture.name === snap.texture.name ? "active" : ""}
+                  src={texture.url}
+                  alt="Texture"
+                />
+              </div>
+            ))}
+          </DecalsContainer>
+        </SimpleBar>
+      </Decals>
       <Slider
         value={snap.decalSize}
         step={0.1}
@@ -58,7 +89,7 @@ export function Customizer() {
           maxWidth: "30vw",
         }}
       />
-      <button
+      {/* <button
         className="share"
         style={{ background: snap.current_color }}
         onClick={() => {
@@ -77,15 +108,15 @@ export function Customizer() {
       >
         DOWNLOAD
         <AiFillCamera size="1.3em" />
-      </button>
+      </button> */}
       {/* <button
         onClick={() =>
           (storeShirt.cloth_type =
-            storeShirt.cloth_type === "shirt" ? "pants" : "shirt")
+            snap.cloth_type === "shirt" ? "pants" : "shirt")
         }
       >
-        NEXT
+        Swap
       </button> */}
-    </div>
+    </CustomizerWrapper>
   );
 }

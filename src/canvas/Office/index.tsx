@@ -8,6 +8,7 @@ import { ReactNode } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { RigidBody } from "@react-three/rapier";
+import { Display } from "../../components/Display";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -121,7 +122,9 @@ type Props = {
 } & Omit<JSX.IntrinsicElements["group"], "children">;
 
 export function Office({ children, sceneType = "Shoes", ...props }: Props) {
-  const { nodes, materials } = useGLTF("/models/shore/office.glb") as GLTFResult;
+  const { nodes, materials } = useGLTF(
+    "/models/shore/office.glb"
+  ) as GLTFResult;
   return (
     <group {...props} dispose={null}>
       {children}
@@ -397,7 +400,13 @@ export function Office({ children, sceneType = "Shoes", ...props }: Props) {
           <mesh
             geometry={nodes.Plane002_1.geometry}
             material={materials["Material.004"]}
-            material-color={sceneType === "Shoes" ? "pink" : sceneType === "Cases" ? "orange" : "orangered"}
+            material-color={
+              sceneType === "Shoes"
+                ? "pink"
+                : sceneType === "Cases"
+                ? "orange"
+                : "orangered"
+            }
           />
           <mesh
             geometry={nodes.Plane002_2.geometry}
@@ -435,7 +444,12 @@ export function Office({ children, sceneType = "Shoes", ...props }: Props) {
             rotation={[Math.PI / 2, 0, 0]}
             scale={[0.182, 0.172, 0.108]}
           >
-            <meshBasicMaterial color="white" transparent opacity={.2} side={THREE.DoubleSide}/>
+            <meshBasicMaterial
+              color="white"
+              transparent
+              opacity={0.2}
+              side={THREE.DoubleSide}
+            />
           </mesh>
           <mesh
             geometry={nodes.Right_Window_.geometry}
@@ -443,7 +457,12 @@ export function Office({ children, sceneType = "Shoes", ...props }: Props) {
             rotation={[Math.PI / 2, 0, 0]}
             scale={[0.182, 0.172, 0.108]}
           >
-            <meshBasicMaterial color="white" transparent opacity={.2} side={THREE.DoubleSide}/>
+            <meshBasicMaterial
+              color="white"
+              transparent
+              opacity={0.2}
+              side={THREE.DoubleSide}
+            />
           </mesh>
         </mesh>
         {/* Entry door */}
@@ -461,7 +480,12 @@ export function Office({ children, sceneType = "Shoes", ...props }: Props) {
             rotation={[Math.PI / 2, 0, 1.745]}
             scale={[0.55, 1, 1.1]}
           >
-            <meshBasicMaterial color="white" transparent opacity={.2} side={THREE.DoubleSide}/>
+            <meshBasicMaterial
+              color="white"
+              transparent
+              opacity={0.2}
+              side={THREE.DoubleSide}
+            />
           </mesh>
         </group>
         {/* Entry door */}
@@ -472,21 +496,24 @@ export function Office({ children, sceneType = "Shoes", ...props }: Props) {
           rotation={[Math.PI / 2, 0, 0]}
           scale={[0.614, 0.998, 0.571]}
         >
-          {sceneType !== "Cases" ? (
+          <Display
+            criteria={sceneType !== "Cases"}
+            fallback={
+              <mesh
+                geometry={nodes.Text.geometry}
+                material={materials["Material.006"]}
+                position={[-0.071, -0.303, 0.1]}
+                scale={2.233}
+              />
+            }
+          >
             <mesh
               geometry={nodes.Text006.geometry}
               material={materials["Material.006"]}
               position={[-0.071, -0.303, 0.1]}
               scale={2.233}
             />
-          ) : (
-            <mesh
-              geometry={nodes.Text.geometry}
-              material={materials["Material.006"]}
-              position={[-0.071, -0.303, 0.1]}
-              scale={2.233}
-            />
-          )}
+          </Display>
         </mesh>
         <mesh
           geometry={nodes.Plane011.geometry}
@@ -495,21 +522,24 @@ export function Office({ children, sceneType = "Shoes", ...props }: Props) {
           rotation={[Math.PI / 2, 0, 0]}
           scale={[0.614, 0.998, 0.571]}
         >
-          {sceneType === "Shoes" || sceneType === "Shirt" ? (
+          <Display
+            criteria={sceneType === "Shoes" || sceneType === "Shirt"}
+            fallback={
+              <mesh
+                geometry={nodes.Text001.geometry}
+                material={materials["Material.006"]}
+                position={[0.007, -0.303, 0.1]}
+                scale={2.233}
+              />
+            }
+          >
             <mesh
               geometry={nodes.Text007.geometry}
               material={materials["Material.006"]}
               position={[0.007, -0.303, 0.1]}
               scale={2.233}
             />
-          ) : (
-            <mesh
-              geometry={nodes.Text001.geometry}
-              material={materials["Material.006"]}
-              position={[0.007, -0.303, 0.1]}
-              scale={2.233}
-            />
-          )}
+          </Display>
         </mesh>
         <mesh
           geometry={nodes.Plane012.geometry}
@@ -518,39 +548,84 @@ export function Office({ children, sceneType = "Shoes", ...props }: Props) {
           rotation={[Math.PI / 2, 0, 0]}
           scale={[0.614, 0.998, 0.571]}
         >
-          {sceneType === "Shoes" && (
+          <Display criteria={sceneType === "Shoes"}>
             <mesh
               geometry={nodes.Text008.geometry}
               material={materials["Material.006"]}
               position={[-0.071, -0.303, 0.1]}
               scale={2.233}
-            />)}
-          {sceneType === "Cases" && (
+            />
+          </Display>
+
+          <Display criteria={sceneType === "Cases"}>
             <mesh
               geometry={nodes.Text002.geometry}
               material={materials["Material.006"]}
               position={[-0.071, -0.303, 0.1]}
               scale={2.233}
             />
-          )}
-          {sceneType === "Shirt" && (
-            <mesh geometry={nodes.Text009.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
-          )}
+          </Display>
+          <Display criteria={sceneType === "Shirt"}>
+            <mesh
+              geometry={nodes.Text009.geometry}
+              material={materials["Material.006"]}
+              position={[-0.071, -0.303, 0.1]}
+              scale={2.233}
+            />
+          </Display>
         </mesh>
-           <mesh geometry={nodes.Plane013.geometry} material={materials['Material.003']} position={[0.953, 5.226, 2.414]} rotation={[Math.PI / 2, 0, 0]} scale={[0.614, 0.998, 0.571]}>
-            {sceneType === "Cases" || sceneType === "Shoes" ? (
-              <mesh geometry={nodes.Text003.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
-            ) : (
-              <mesh geometry={nodes.Text005.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
-            )}
-         </mesh>
-         <mesh geometry={nodes.Plane014.geometry} material={materials['Material.003']} position={[2.311, 5.226, 2.414]} rotation={[Math.PI / 2, 0, 0]} scale={[0.614, 0.998, 0.571]}>
-          {sceneType === "Cases" || sceneType === "Shoes" ? (
-            <mesh geometry={nodes.Text004.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
-          ) : (
-           <mesh geometry={nodes.Text010.geometry} material={materials['Material.006']} position={[-0.071, -0.303, 0.1]} scale={2.233} />
-          )}
-         </mesh>
+        <mesh
+          geometry={nodes.Plane013.geometry}
+          material={materials["Material.003"]}
+          position={[0.953, 5.226, 2.414]}
+          rotation={[Math.PI / 2, 0, 0]}
+          scale={[0.614, 0.998, 0.571]}
+        >
+          <Display
+            criteria={sceneType === "Cases" || sceneType === "Shoes"}
+            fallback={
+              <mesh
+                geometry={nodes.Text005.geometry}
+                material={materials["Material.006"]}
+                position={[-0.071, -0.303, 0.1]}
+                scale={2.233}
+              />
+            }
+          >
+            <mesh
+              geometry={nodes.Text003.geometry}
+              material={materials["Material.006"]}
+              position={[-0.071, -0.303, 0.1]}
+              scale={2.233}
+            />
+          </Display>
+        </mesh>
+        <mesh
+          geometry={nodes.Plane014.geometry}
+          material={materials["Material.003"]}
+          position={[2.311, 5.226, 2.414]}
+          rotation={[Math.PI / 2, 0, 0]}
+          scale={[0.614, 0.998, 0.571]}
+        >
+          <Display
+            criteria={sceneType === "Cases" || sceneType === "Shoes"}
+            fallback={
+              <mesh
+                geometry={nodes.Text010.geometry}
+                material={materials["Material.006"]}
+                position={[-0.071, -0.303, 0.1]}
+                scale={2.233}
+              />
+            }
+          >
+            <mesh
+              geometry={nodes.Text004.geometry}
+              material={materials["Material.006"]}
+              position={[-0.071, -0.303, 0.1]}
+              scale={2.233}
+            />
+          </Display>
+        </mesh>
       </RigidBody>
     </group>
   );

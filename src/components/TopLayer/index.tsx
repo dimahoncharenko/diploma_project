@@ -34,7 +34,6 @@ export const TopLayer = () => {
         <CaseOverlay />
         <ShoeOverlay />
         <ShirtOverlay />
-        {/* <OverlaySlider /> */}
       </Display>
       <div
         className={`fullscreen bg ${ready ? "ready" : "notready"} ${

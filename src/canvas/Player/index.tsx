@@ -14,7 +14,7 @@ import { useSnapshot } from "valtio";
 import { storeState } from "../../stores";
 
 const SPEED = 7;
-let direction = new THREE.Vector3();
+const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 
@@ -26,6 +26,8 @@ export const Player = () => {
   const [, params] = useRoute("/item/:id");
   const { isCrossedBorders } = useSnapshot(storeState);
 
+  // When the user choose a showroom it unlocks the pointer (show the cursor of mouse),
+  // otherwise it's hidden
   useEffect(() => {
     if (pointerRef.current) {
       if (!params?.id) {
@@ -38,17 +40,21 @@ export const Player = () => {
 
   useFrame((state: any) => {
     if (!ref.current || !colliderRef.current) return;
+    // Keyboard checkers
     const { forward, backward, left, right } = get();
 
     if (forward && backward) return;
 
+    // Convert to integers 
     let moveForward = +forward;
     let moveBackward = +backward;
     let moveLeft = +left;
     let moveRight = +right;
 
+    // Velocity of the player
     let velocity = ref.current.linvel();
 
+    // If the player touched water
     if (isCrossedBorders) {
       moveForward && ((moveForward = 0), (moveBackward = -1));
       moveBackward && ((moveBackward = 0), (moveForward = -1));
@@ -69,6 +75,7 @@ export const Player = () => {
       .multiplyScalar(SPEED)
       .applyEuler(state.camera.rotation);
 
+    // Change the player's velocity 
     ref.current.setLinvel(
       { x: direction.x, y: velocity.y, z: direction.z },
       true
@@ -87,7 +94,7 @@ export const Player = () => {
         colliders={false}
         mass={1}
         type="dynamic"
-        position={[1, 25, 21]}
+        position={[1, 30, 21]}
         enabledRotations={[false, false, false]}
       >
         <CapsuleCollider ref={colliderRef} args={[0.45, 0.45]} />

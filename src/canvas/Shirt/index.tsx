@@ -11,6 +11,7 @@ import { useSnapshot } from "valtio";
 
 import { storeShirt } from "../../stores";
 import { useFrame } from "@react-three/fiber";
+import { useLayoutEffect } from "react";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -23,13 +24,19 @@ type GLTFResult = GLTF & {
 
 function Model(props: JSX.IntrinsicElements["mesh"]) {
   const snap = useSnapshot(storeShirt);
-  const texture = useTexture(`/models/shirt/${snap.current_decal}.png`);
-  const { nodes, materials } = useGLTF(
-    "/models/shirt/shirt.glb"
-  ) as GLTFResult;
+  const { nodes, materials } = useGLTF("/models/shirt/shirt.glb") as GLTFResult;
+  
+  const decal = useTexture(`/models/shirt/${snap.current_decal}.png`);
+  const texture = useTexture(snap.texture.url);
+
+  useLayoutEffect(() => {
+    materials.lambert1.map = texture;
+  }, [texture]);
+
   useFrame((_, delta) => {
     easing.dampC(materials.lambert1.color, snap.current_color, 0.25, delta);
   });
+
   return (
     <mesh
       {...props}
@@ -43,12 +50,10 @@ function Model(props: JSX.IntrinsicElements["mesh"]) {
         position={[0, 0.04, 0.15]}
         rotation={[0, 0, 0]}
         scale={0.15 * snap.decalSize}
-        map={texture}
+        map={decal}
       />
     </mesh>
   );
 }
 
 export default Model;
-
-useGLTF.preload("/models/shirt/shirt.glb");

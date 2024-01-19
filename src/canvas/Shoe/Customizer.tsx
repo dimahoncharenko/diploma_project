@@ -1,13 +1,37 @@
 import { useSnapshot } from "valtio";
+import { DisabledByDefaultRounded } from "@mui/icons-material";
+
 import { storeShoe } from "../../stores";
+import { ShoeCustomizer, Texture, TextureContainer } from "./styled";
+import { shoe_textures } from "../../utils/decals";
 
 export const Customizer = () => {
-    const { shoe_name } = useSnapshot(storeShoe);
+  const { texture } = useSnapshot(storeShoe);
 
-    return <div style={{ position: "fixed", bottom: "0", left: "1em" }}>
-        <p>{shoe_name}</p>
-        <button onClick={() => {
-            storeShoe.shoe_name = shoe_name === "Nike" ? "Shoe" : "Nike";
-        }}>Далі</button>
-    </div>;
+  return (
+    <ShoeCustomizer>
+      {texture && <p>{texture.name}</p>}
+
+      <TextureContainer>
+        <Texture>
+          <DisabledByDefaultRounded
+            style={{ width: "100%", height: "100%" }}
+            onClick={() => {
+              storeShoe.texture = null;
+            }}
+          />
+        </Texture>
+        {shoe_textures.map((texture, index) => (
+          <Texture key={index}>
+            <img
+              src={texture.url_files.map}
+              onClick={() => {
+                storeShoe.texture = texture;
+              }}
+            />
+          </Texture>
+        ))}
+      </TextureContainer>
+    </ShoeCustomizer>
+  );
 };

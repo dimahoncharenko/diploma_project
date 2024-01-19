@@ -125,79 +125,8 @@ button:hover {
   display: none;
 }
 
-/* CUSTOMIZER */
-
-.customizer {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  margin-bottom: 25px;
-}
-
-.customizer span {
-  font-size: 0.8rem;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.customizer span svg {
-  width: 24px;
-  padding-right: 5px;
-}
-
 .share {
   bottom: 40px;
   position: absolute;
   right: 40px;
-}
-
-/* SHIRT OVERLAY */
-
-.color-options {
-  position: absolute;
-  left: 1em;
-  bottom: 10em;
-  padding: .5em;
-}
-
-.circle {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid white;
-  transition: transform 0.3s cubic-bezier(0.85, 0, 0.15, 1);
-}
-
-.circle:hover {
-  transform: scale(1.2);
-  cursor: pointer;
-}
-
-.decals {
-  position: absolute;
-  left: 50px;
-  bottom: 40px;
-}
-
-.decals img {
-  width: 3em;
-  filter: saturate(0) invert(1) brightness(1);
-  transition: all 0.2s ease-in-out;
-  background-color: rgb(40, 40, 40);
-  border-radius: 5%;
-  padding: .5em;
-}
-
-.decals img:hover, .decals img.active {
-  filter: none;
-  transform: scale(1.2);
-  cursor: pointer;
-}
-
-.decals--container {
-  display: flex;
-  gap: 20px;
 }

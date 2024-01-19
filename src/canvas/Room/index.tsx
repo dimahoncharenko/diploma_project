@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { ReactNode, useRef } from "react";
-import { MeshPortalMaterial, PortalMaterialType } from "@react-three/drei";
+import { Circle, MeshPortalMaterial, PortalMaterialType } from "@react-three/drei";
 import { GroupProps, useFrame } from "@react-three/fiber";
 import { easing } from "maath";
 import { useRoute } from "wouter";
@@ -26,7 +26,7 @@ export const Room = ({ id, bg = "#ffffff", children, ...props }: RoomProps) => {
         <sphereGeometry args={[1, 1, 1]} />
         <MeshPortalMaterial
           ref={portal}
-          events={false}
+          // events={false}
           side={THREE.DoubleSide}
           visible={false}
         >

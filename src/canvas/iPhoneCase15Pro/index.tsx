@@ -32,10 +32,8 @@ function Model(props: JSX.IntrinsicElements["group"]) {
     "/models/iPhone15Pro_case/scene-transformed.glb"
   ) as GLTFResult;
 
-    console.log("I rendered");
-
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} onPointerOver={() => console.log("iPhone 15")}>
       <ambientLight intensity={1} />
       <mesh geometry={nodes.Plane_PBR_0.geometry} position={[0, 0, 0.004]}>
         {decal?.component({
@@ -60,5 +58,3 @@ function Model(props: JSX.IntrinsicElements["group"]) {
 }
 
 export default Model;
-
-useGLTF.preload("/models/iPhone15Pro_case/scene-transformed.glb");

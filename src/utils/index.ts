@@ -53,7 +53,6 @@ export const exportScene = (scene: any) => {
       scene,
       (gltf) => {
         const output = JSON.stringify(gltf, null, 2);
-        alert("export")
         downloadScene(new Blob([output], { type: "text/plain" }), "scene.gltf");
       },
       (err) => {
@@ -67,9 +66,9 @@ export const exportScene = (scene: any) => {
     );
 }
 
-export const changeUVWrapping = (maps: THREE.Texture[], wrappingOption: THREE.Wrapping) => {
+export const changeMaterialProperty = <T extends keyof THREE.Texture>(maps: THREE.Texture[], prop: T, value: THREE.Texture[T]) => {
   for (const map of maps) {
-    map.wrapS = map.wrapT = wrappingOption;
+    map[prop] = value;
     map.needsUpdate = true;
   }
 }

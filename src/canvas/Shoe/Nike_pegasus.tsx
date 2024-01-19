@@ -5,13 +5,16 @@ Command: npx gltfjsx@6.2.16 ./nike_pegasus.glb --types
 
 import * as THREE from "three";
 
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, useTexture } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useEffect, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
-import { storeShoe } from "../../stores";
 import { useRoute } from "wouter";
 import { useFrame } from "@react-three/fiber";
+
+import { storeShoe } from "../../stores";
+import { changeMaterialProperty } from "../../utils";
+import { shoe_textures } from "../../utils/decals";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -39,6 +42,17 @@ function Model(props: JSX.IntrinsicElements["group"]) {
   const [hovered, setHovered] = useState<keyof typeof snap.items | null>(null);
   const [, params] = useRoute("/item/:id");
 
+  const maps = useTexture({
+    ...snap.texture?.url_files || shoe_textures[0].url_files
+  });
+
+  useEffect(() => {
+    if (hovered || !snap.texture) return;
+    changeMaterialProperty(Object.values(maps), "wrapS" ,THREE.RepeatWrapping);
+    changeMaterialProperty(Object.values(maps), "wrapT" ,THREE.RepeatWrapping);
+    changeMaterialProperty(Object.values(maps), "repeat", new THREE.Vector2(5, 5))
+  }, [maps, hovered]);
+
   useFrame((state) => {
     if (!group.current) return;
     const t = state.clock.getElapsedTime();
@@ -59,84 +73,91 @@ function Model(props: JSX.IntrinsicElements["group"]) {
   }, [hovered, snap]);
 
   return (
-    <group
-      {...props}
-      dispose={null}
-      ref={group}
-      onPointerOver={(e) => {
-        e.stopPropagation();
-        e.object instanceof THREE.Mesh && setHovered(e.object.material.name);
-      }}
-      onPointerOut={(e) => e.intersections.length === 0 && setHovered(null)}
-      onPointerMissed={() => (storeShoe.current = null)}
-      onPointerDown={(e) => {
-        e.stopPropagation();
-        e.object instanceof THREE.Mesh &&
-          (storeShoe.current = e.object.material.name);
-      }}
-    >
-      <hemisphereLight args={[0xffffff, 0x000000, 2]} />
 
-      <mesh geometry={nodes.Accessory_1.geometry}>
-        <meshStandardMaterial
-          {...materials.NikeShoe}
-          color={snap.items.Eyelets}
-          name="Eyelets"
-        />
-      </mesh>
-      <mesh geometry={nodes.Accessory_2.geometry}>
-        <meshStandardMaterial
-          {...materials.NikeShoe}
-          color={snap.items["Lace Cage"]}
-          name="Lace Cage"
-        />
-      </mesh>
-      <mesh geometry={nodes.Accessory_3.geometry}>
-        <meshStandardMaterial
-          {...materials.NikeShoe}
-          color={snap.items.Heel}
-          name="Heel"
-        />
-      </mesh>
-      <mesh geometry={nodes.Body.geometry}>
-        <meshStandardMaterial
-          {...materials.NikeShoe}
-          color={snap.items.Body}
-          name="Body"
-        />
-      </mesh>
-      <mesh geometry={nodes.Interior.geometry}>
-        <meshStandardMaterial
-          {...materials.NikeShoe}
-          color={snap.items.Interior}
-          name="Interior"
-        />
-      </mesh>
-      <mesh geometry={nodes.Laces.geometry}>
-        <meshStandardMaterial
-          {...materials.NikeShoe}
-          color={snap.items.Laces}
-          name="Laces"
-        />
-      </mesh>
-      <mesh geometry={nodes.Logo.geometry}>
-        <meshStandardMaterial
-          {...materials.NikeShoe}
-          color="white"
-          name="Logo"
-        />
-      </mesh>
-      <mesh geometry={nodes.Sole.geometry}>
-        <meshStandardMaterial
-          {...materials.NikeShoe}
-          color={snap.items.Sole}
-          name="Sole"
-        />
-      </mesh>
-    </group>
+      <group
+        ref={group}
+        {...props}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          e.object instanceof THREE.Mesh && setHovered(e.object.material.name);
+        }}
+        onPointerOut={(e) => e.intersections.length === 0 && setHovered(null)}
+        onPointerMissed={() => (storeShoe.current = null)}
+        onPointerDown={(e) => {
+          e.stopPropagation();
+          e.object instanceof THREE.Mesh &&
+            (storeShoe.current = e.object.material.name);
+        }}
+      >
+        <hemisphereLight args={[0xffffff, 0x000000, 2]} />
+        <mesh geometry={nodes.Accessory_1.geometry}>
+          <meshStandardMaterial
+            {...materials.NikeShoe}
+            color={snap.items.Eyelets}
+            name="Eyelets"
+          />
+        </mesh>
+        <mesh geometry={nodes.Accessory_2.geometry}>
+          <meshStandardMaterial
+            {...materials.NikeShoe}
+            color={snap.items["Lace Cage"]}
+            name="Lace Cage"
+          />
+        </mesh>
+      
+          <mesh geometry={nodes.Accessory_3.geometry}>
+            <meshStandardMaterial
+              {...materials.NikeShoe}
+              color={snap.items.Heel}
+              name="Heel"
+            />
+          </mesh>
+
+          <mesh geometry={nodes.Body.geometry}>
+            {snap.texture ? (
+              <meshStandardMaterial
+                {...materials.NikeShoe}
+                color={snap.items.Body}
+                name="Body"
+                {...maps}
+              />
+            ) : (
+              <meshStandardMaterial
+                {...materials.NikeShoe}
+                color={snap.items.Body}
+                name="Body"
+              />
+            )}
+          </mesh>
+      
+        <mesh geometry={nodes.Interior.geometry}>
+          <meshStandardMaterial
+            {...materials.NikeShoe}
+            color={snap.items.Interior}
+            name="Interior"
+          />
+        </mesh>
+        <mesh geometry={nodes.Laces.geometry}>
+          <meshStandardMaterial
+            {...materials.NikeShoe}
+            color={snap.items.Laces}
+            name="Laces"
+          />
+        </mesh>
+        <mesh geometry={nodes.Logo.geometry}>
+          <meshStandardMaterial color={snap.items.Logo} name="Logo" />
+        </mesh>
+    
+          <mesh geometry={nodes.Sole.geometry}>
+            <meshStandardMaterial
+              {...materials.NikeShoe}
+              color={snap.items.Sole}
+              name="Sole"
+            />
+          </mesh>
+      </group>
+
   );
 }
 
-useGLTF.preload("/models/shoe/nike_pegasus.glb");
 export default Model;
-

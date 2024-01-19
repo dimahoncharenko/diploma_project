@@ -10,21 +10,22 @@ type Props = {
 } & MeshProps;
 export function WaterShader({ geom, ...props }: Props) {
   const ref = useRef<THREE.Mesh>(null);
-  const waterNormals = useLoader(THREE.TextureLoader, "/waternormals.jpeg");
-  waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+  const waterNormals = useLoader(THREE.TextureLoader, "/waternormals2.jpg");
+
+  waterNormals.wrapS = waterNormals.wrapT = THREE.MirroredRepeatWrapping;
   waterNormals.generateMipMaps = false;
+
   const config = useMemo(
     () => ({
       textureWidth: 512,
       textureHeight: 512,
       waterNormals,
-      sunDirection: new THREE.Vector3(),
-      sunColor: 0xfdd61d,
-      waterColor: 0x10218b,
-      distortionScale: 3.7,
+      sunDirection: new THREE.Vector3(3,2,1),
+      sunColor: 0xacc7ff,
+      waterColor: 0xadae9f,
+      distortionScale: 3,
       fog: true,
       alpha: .95,
-      side: THREE.FrontSide,
     } as WaterOptions),
     [waterNormals]
   );
@@ -37,11 +38,13 @@ export function WaterShader({ geom, ...props }: Props) {
       }
     });
   return (
-    // @ts-ignore
+    <>
+    {/* @ts-ignore */}
     <water
       ref={ref}
       args={[geom, config]}
       {...props}
     />
+    </>
   );
 }
